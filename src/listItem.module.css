@@ -1,0 +1,21 @@
+.container1 {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: #c7e2f6;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.listItem {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  background-color: #818c97;
+}
+
+.info {
+  padding: 3px;
+  width: 25%;
+}

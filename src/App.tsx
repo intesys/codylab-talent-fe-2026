@@ -1,9 +1,9 @@
-import { BrowserRouter, Route, Routes } from "react-router";
-import Progetti from "./pages/progetti";
+import { BrowserRouter, Routes, Route } from "react-router";
 import Logout from "./pages/logout";
 import Profilo from "./pages/profilo";
+import Progetti from "./pages/progetti";
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
@@ -14,5 +14,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;
