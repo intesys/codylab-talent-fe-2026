@@ -18,7 +18,7 @@ function Header() {
               <Link to="/profilo">Profilo</Link>
             </li>
             <li>
-              <Link to="/logout">Logout</Link>
+              <Link to="/">Logout</Link>
             </li>
           </ul>
         </nav>

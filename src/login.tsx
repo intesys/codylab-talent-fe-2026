@@ -1,33 +1,36 @@
 import { useFormik } from "formik";
-import { z } from "zod";
-import { toFormikValidationSchema } from "zod-formik-adapter";
+// import { z } from "zod";
+// import { toFormikValidationSchema } from "zod-formik-adapter";
+import { useNavigate } from "react-router";
 import "./Login.css";
 
-
-const loginSchema = z.object({
-  username: z
-    .string()
-    .min(5, "Username deve avere almeno 5 caratteri")
-    .max(25, "Username troppo lungo"),
-  password: z
-    .string()
-    .min(8, "Password deve avere almeno 8 caratteri")
-    .regex(/[0-9]/, "Password deve contenere almeno un numero")
-    .regex(/[£!@#$%^&*()-+]/, "Password deve contenere almeno un carattere speciale")
-    .regex(/[A-Z]/, "Password deve contenere almeno una maiuscola"),
-});
+// const loginSchema = z.object({
+//   username: z
+//     .string()
+//     .min(5, "Username deve avere almeno 5 caratteri")
+//     .max(25, "Username troppo lungo"),
+//   password: z
+//     .string()
+//     .min(8, "Password deve avere almeno 8 caratteri")
+//     .regex(/[0-9]/, "Password deve contenere almeno un numero")
+//     .regex(
+//       /[£!@#$%^&*()-+]/,
+//       "Password deve contenere almeno un carattere speciale",
+//     )
+//     .regex(/[A-Z]/, "Password deve contenere almeno una maiuscola"),
+// });
 
 function Login() {
-  
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
     },
-    validationSchema: toFormikValidationSchema(loginSchema),
+    // validationSchema: toFormikValidationSchema(loginSchema),
     onSubmit: (values) => {
       console.log("Login:", values);
-
+      navigate("/progetti");
     },
   });
 
