@@ -1,0 +1,9 @@
+.container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: #c7e2f6;
+  width: 60%;
+  margin: 0 auto;
+}

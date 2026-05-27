@@ -1,0 +1,11 @@
+.listItem {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  background-color: #818c97;
+}
+
+.info {
+  padding: 3px;
+  width: 25%;
+}
