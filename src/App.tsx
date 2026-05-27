@@ -1,4 +1,5 @@
 import styles from "./listItem.module.css";
+
 const products = [
   {
     date: "DATE",
@@ -72,22 +73,18 @@ const products = [
   },
 ];
 
-export default function ShoppingList() {
+export default function App() {
   return (
-    <>
-      {" "}
-      <ul className={styles.container1}>
-        <p> lista prodotti</p>
-
-        {products.map((product) => (
-          <li className={styles.listItem}>
-            <div className={styles.info}>{product.date} </div>
-            <div className={styles.info}>{product.title} </div>
-            <div className={styles.info}>{product.ore} </div>
-            <div className={styles.info}>{product.percentage}% </div>
-          </li>
-        ))}
-      </ul>
-    </>
+    <ul className={styles.container1}>
+      <p> lista prodotti</p>
+      {products.map((product) => (
+        <li className={styles.listItem}>
+          <div className={styles.info}>{product.date} </div>
+          <div className={styles.info}>{product.title} </div>
+          <div className={styles.info}>{product.ore} </div>
+          <div className={styles.info}>{product.percentage}% </div>
+        </li>
+      ))}
+    </ul>
   );
 }
