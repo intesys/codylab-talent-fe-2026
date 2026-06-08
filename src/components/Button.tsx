@@ -1,14 +1,10 @@
-import "./Button.css";
+import React from "react";
 
-type ButtonProps = {
-  type?: "button" | "submit" | "reset";
-  onClick?: () => void;
-  children: React.ReactNode;
-};
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-function Button({ type = "button", onClick, children }: ButtonProps) {
+function Button({ className = "", children, ...props }: ButtonProps) {
   return (
-    <button type={type} onClick={onClick} className="btn">
+    <button className={`btn ${className}`.trim()} {...props}>
       {children}
     </button>
   );
