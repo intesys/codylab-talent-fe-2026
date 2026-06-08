@@ -1,5 +1,5 @@
 import styles from "./ProjectList.module.css";
-import ProjectListItem from "./ProjectListItem";
+import ProjectListItem from "../projectListItem/ProjectListItem";
 
 type Project = {
   id: number;
