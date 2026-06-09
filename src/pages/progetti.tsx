@@ -1,12 +1,12 @@
-import Header from "../components/Header";
-import styles from "../listItem.module.css";
+import Header from "../components/header/Header";
+import ProjectList from "../components/projectList/ProjectList";
 
 const products = [
   {
     date: "DATE",
     title: "TITOLO",
     ore: "ORE TOTALI",
-    percentage: "COMPLETAMENTO ",
+    percentage: "COMPLETAMENTO",
     id: 1,
   },
   {
@@ -78,17 +78,7 @@ function Progetti() {
   return (
     <div>
       <Header />
-      <ul className={styles.container1}>
-        <p> lista prodotti</p>
-        {products.map((product) => (
-          <li className={styles.listItem}>
-            <div className={styles.info}>{product.date} </div>
-            <div className={styles.info}>{product.title} </div>
-            <div className={styles.info}>{product.ore} </div>
-            <div className={styles.info}>{product.percentage}% </div>
-          </li>
-        ))}
-      </ul>
+      <ProjectList projects={products} />
     </div>
   );
 }
