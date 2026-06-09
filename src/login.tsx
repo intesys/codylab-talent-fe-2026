@@ -1,9 +1,8 @@
 import { useFormik } from "formik";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
-import { useNavigate } from "react-router";
-import TextField from "./components/TextField";
 import Button from "./components/Button";
+import TextField from "./components/TextField";
 import "./login.css";
 
 const loginSchema = z.object({
@@ -22,17 +21,20 @@ const loginSchema = z.object({
     .regex(/[!@#$%^&*]/, "Serve almeno un carattere speciale"),
 });
 
-function Login() {
-  const navigate = useNavigate();
+function Login({
+  setIsAuthenticated,
+}: {
+  setIsAuthenticated: (value: boolean) => void;
+}) {
   const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
     },
     validationSchema: toFormikValidationSchema(loginSchema),
-    onSubmit: (values) => {
-      console.log("Login:", values);
-      navigate("/progetti");
+    onSubmit: () => {
+      localStorage.setItem("token", "fake-jwt-token");
+      setIsAuthenticated(true);
     },
   });
 
