@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import Header from "../components/header/Header";
 import ProjectList from "../components/projectList/ProjectList";
 
@@ -75,10 +76,21 @@ const products = [
 ];
 
 function Progetti() {
+  const [projects, setProjects] = useState(products);
+
+  useEffect(() => {
+    const localData = localStorage.getItem("progetti");
+    if (localData) {
+      const progettiNuovi = JSON.parse(localData);
+      setProjects(JSON.parse(localData));
+      setProjects([...products, ...progettiNuovi]);
+    }
+  }, []);
+
   return (
     <div>
       <Header />
-      <ProjectList projects={products} />
+      <ProjectList projects={projects} />
     </div>
   );
 }
