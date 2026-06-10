@@ -1,7 +1,9 @@
 import Header from "../components/header/Header";
 import ProjectList from "../components/projectList/ProjectList";
+import { useState } from "react";
 
-const products = [
+//cambiato il nome dell'array per essere più chiaro
+const projectsRaw = [
   {
     date: "DATE",
     title: "TITOLO",
@@ -75,11 +77,20 @@ const products = [
 ];
 
 function Progetti() {
+//utilizziamo use state per aggiornare in real time la lista quando viene aggiornata
+  const [projects, setProjects] = useState(projectsRaw);
+
+ //riceve un id e filtra la lista per tenere tutti gli oggetti tranne l'id ricevuto
+  const handleDelete = (id: number) => {
+    setProjects(projects.filter((project) => project.id !== id));
+  };
+
+  //passi la lista aggiornata
   return (
-    <div>
-      <Header />
-      <ProjectList projects={products} />
-    </div>
+      <div>
+        <Header />
+        <ProjectList projects={projects} onDelete={handleDelete} />
+      </div>
   );
 }
 
