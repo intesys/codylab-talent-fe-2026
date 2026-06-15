@@ -9,12 +9,21 @@ type Project = {
   percentage: string;
 };
 
+// i campi modificabili di un progetto (l'id non si tocca)
+type ProjectFields = {
+  date: string;
+  title: string;
+  ore: string;
+  percentage: string;
+};
+
 type ProjectListProps = {
   projects: Project[];
   onDelete: (id: number) => void; // Aggiunta il prop per la funzione
+  onEdit: (id: number, fields: ProjectFields) => void; // Aggiunto il prop per la modifica
 };
 
-export default function ProjectList({ projects, onDelete }: ProjectListProps) {
+export default function ProjectList({ projects, onDelete, onEdit }: ProjectListProps) {
   return (
       <ul className={styles.container}>
         <p>Lista progetti</p>
@@ -27,6 +36,7 @@ export default function ProjectList({ projects, onDelete }: ProjectListProps) {
                 ore={project.ore}
                 percentage={project.percentage}
                 onDelete={onDelete} // Aggiunto il passaggio della funzione
+                onEdit={onEdit} // Aggiunto il passaggio della funzione di modifica
             />
         ))}
       </ul>

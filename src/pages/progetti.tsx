@@ -85,11 +85,23 @@ function Progetti() {
     setProjects(projects.filter((project) => project.id !== id));
   };
 
+  //riceve un id e i nuovi campi: aggiorna solo il progetto corrispondente, gli altri restano invariati
+  const handleEdit = (
+    id: number,
+    fields: { date: string; title: string; ore: string; percentage: string }
+  ) => {
+    setProjects(
+      projects.map((project) =>
+        project.id === id ? { ...project, ...fields } : project
+      )
+    );
+  };
+
   //passi la lista aggiornata
   return (
       <div>
         <Header />
-        <ProjectList projects={projects} onDelete={handleDelete} />
+        <ProjectList projects={projects} onDelete={handleDelete} onEdit={handleEdit} />
       </div>
   );
 }
