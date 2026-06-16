@@ -1,11 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
 .listItem {
   display: flex;
   flex-direction: row;
   gap: 8px;
-  background-color: #818c97;
+  background-color: #ffffff;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  border-bottom: 0.5px solid #F0F4F8;
+  border-radius: 0;
+  align-items: center;
+  padding: 10px 14px; 
+  
+}
+
+.listItem:hover {
+  background: #F7FAFC;
 }
 
 .info {
   padding: 3px;
-  width: 25%;
+  flex: 1 1 100px;
+  min-width: 0;
+  font-size: 14px;
+  color: #2D3748;
+
+  
+}
+
+.button {
+  
+
+  background: transparent;
+  border: 1px solid #E53E3E;
+  color: #E53E3E;
+  border-radius: 7px;
+  padding: 5px 14px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  font-family: 'Inter', sans-serif;
+
+
+}
+
+.button:hover {
+  background: #E53E3E;
+  color: #ffffff;
 }

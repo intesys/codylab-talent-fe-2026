@@ -6,18 +6,24 @@ import type { Project } from "../../App";
 type ProjectListProps = {
   projects: Project[];
   update: (id: number, fields: Partial<Project>) => void;
+  onDelete: (id: number) => void; // Aggiunta il prop per la funzione
 };
 
-export default function ProjectList({ projects, update }: ProjectListProps) {
+export default function ProjectList({
+  projects,
+  update,
+  onDelete,
+}: ProjectListProps) {
   return (
     <ul className={styles.container}>
-      <p>Lista progetti</p>
-
-      <li className={styles.intestation}>
-        <div className={styles.category}>DATA</div>
-        <div className={styles.category}>TITOLO</div>
-        <div className={styles.category}>ORE TOTALI</div>
-        <div className={styles.category}>PERCENTUALE DI COMPLETAMENTO</div>
+      <h1 className={styles.h1}>Lista progetti</h1>
+      <li className={styles.listItem}>
+        <div className={styles.info}>DATA</div>
+        <div className={styles.info}>TITOLO</div>
+        <div className={styles.info}>ORE TOTALI</div>
+        <div className={styles.info}>PERCENTUALE DI COMPLETAMENTO</div>
+        <div className={styles.info}>AZIONI</div>{" "}
+        {/* Aggiunta colonna per le azioni */}
       </li>
 
       {projects.map((project) => (
@@ -29,6 +35,7 @@ export default function ProjectList({ projects, update }: ProjectListProps) {
           ore={project.ore}
           percentage={project.percentage}
           update={update} // Aggiunto il passaggio della funzione di modifica
+          onDelete={onDelete} // Aggiunto il passaggio della funzione
         />
       ))}
     </ul>
