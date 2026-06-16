@@ -8,6 +8,12 @@ type TextFieldProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   error?: string | false;
+  min?: string;
+  max?: string;
+  data?: Date;
+  ore?: string;
+  title?: string;
+  percentage?: string;
 };
 
 function TextField({
