@@ -17,10 +17,8 @@ export default function ProjectListItem({ id, date, title, ore, percentage, onDe
             <div className={styles.info}>{ore}</div>
             <div className={styles.info}>{percentage}%</div>
 
-            {/* Aggiungiamo il bottone solo se l'ID è diverso da 1 (cioè non è l'intestazione) */}
-            {id !== 1 && (
-                <button onClick={() => onDelete(id)}>Elimina</button>
-            )}
+            <button onClick={() => onDelete(id)}>Elimina</button>
+
         </li>
     );
 }

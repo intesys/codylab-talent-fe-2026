@@ -1,4 +1,5 @@
 import styles from "./ProjectList.module.css";
+
 import ProjectListItem from "../projectListItem/ProjectListItem";
 
 type Project = {
@@ -16,19 +17,28 @@ type ProjectListProps = {
 
 export default function ProjectList({ projects, onDelete }: ProjectListProps) {
   return (
-      <ul className={styles.container}>
-        <p>Lista progetti</p>
-        {projects.map((project) => (
-            <ProjectListItem
-                key={project.id}
-                id={project.id} // modificato il passaggio dell'ID
-                date={project.date}
-                title={project.title}
-                ore={project.ore}
-                percentage={project.percentage}
-                onDelete={onDelete} // Aggiunto il passaggio della funzione
-            />
-        ))}
-      </ul>
+        <ul className={styles.container}>
+          <p>Lista progetti</p>
+
+          <li className={styles.intestation}>
+            <div className={styles.category}>DATA</div>
+            <div className={styles.category}>TITOLO</div>
+            <div className={styles.category}>ORE TOTALI</div>
+            <div className={styles.category}>PERCENTUALE DI COMPLETAMENTO</div>
+          </li>
+
+
+          {projects.map((project) => (
+              <ProjectListItem
+                  key={project.id}
+                  id={project.id} // modificato il passaggio dell'ID
+                  date={project.date}
+                  title={project.title}
+                  ore={project.ore}
+                  percentage={project.percentage}
+                  onDelete={onDelete} // Aggiunto il passaggio della funzione
+              />
+          ))}
+        </ul>
   );
 }
