@@ -8,8 +8,7 @@ type ProjectListItemProps = {
   title: string;
   ore: string;
   percentage: string;
-  onDelete: (id: number) => void; // Aggiunto così ogni riga sa il proprio id e può eliminarsi con questa funizone
-  onEdit: (id: number, fields: Omit<Project, "id">) => void; // Aggiunto: salva le modifiche della riga
+  update: (id: number, fields: Omit<Project, "id">) => void; // Aggiunto: salva le modifiche della riga
 };
 
 //aggiunti id, onDelete e onEdit ai props passati alla funzione
@@ -19,8 +18,7 @@ export default function ProjectListItem({
   title,
   ore,
   percentage,
-  onDelete,
-  onEdit,
+  update,
 }: ProjectListItemProps) {
   // isEditing: dice se la riga è in modalità modifica
   const [isEditing, setIsEditing] = useState(false);
@@ -40,7 +38,7 @@ export default function ProjectListItem({
 
   // salva: passa i nuovi valori al parent ed esce dalla modalità modifica
   const handleSave = () => {
-    onEdit(id, draft);
+    update(id, draft);
     setIsEditing(false);
   };
 
@@ -92,7 +90,6 @@ export default function ProjectListItem({
           {id !== 1 && (
             <>
               <button onClick={handleStartEdit}>Modifica</button>
-              <button onClick={() => onDelete(id)}>Elimina</button>
             </>
           )}
         </>

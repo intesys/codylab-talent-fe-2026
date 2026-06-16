@@ -95,6 +95,15 @@ export default function App() {
     });
   };
 
+  const updateProject = (id: number, fields: Partial<Project>) => {
+    setProjects((prevState) => {
+      const newProjects = prevState.map((project) =>
+        project.id === id ? { ...project, ...fields } : project,
+      );
+      return newProjects;
+    });
+  };
+
   return (
     <BrowserRouter>
       <Routes>
@@ -103,7 +112,10 @@ export default function App() {
             path="/add-new-project"
             element={<AddNewProject add={addProject} />}
           />
-          <Route index element={<Progetti projects={projects} />} />
+          <Route
+            index
+            element={<Progetti projects={projects} update={updateProject} />}
+          />
           <Route path="/profilo" element={<Profilo />} />
           <Route path="/logout" element={<Logout />} />
         </Route>
