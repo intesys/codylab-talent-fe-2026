@@ -3,7 +3,7 @@ import { Auth } from "./components/auth/Auth";
 import Logout from "./pages/logout";
 import Profilo from "./pages/profilo";
 import Progetti from "./pages/progetti";
-import AddNewProject from "./pages/add_new_project";
+import AddNewProject from "./pages/AddNewProject";
 
 export default function App() {
   return (
