@@ -1,10 +1,10 @@
+import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
 import { Auth } from "./components/auth/Auth";
+import AddNewProject from "./pages/AddNewProject";
 import Logout from "./pages/logout";
 import Profilo from "./pages/profilo";
 import Progetti from "./pages/progetti";
-import AddNewProject from "./pages/AddNewProject";
-import { useState } from "react";
 
 export type Project = {
   date: string;
@@ -97,6 +97,13 @@ export default function App() {
     });
   };
 
+  const deleteProject = (id: number) => {
+    setProjects((prevState) => {
+      const newProjects = prevState.filter((project) => project.id !== id);
+      return newProjects;
+    });
+  };
+
   return (
     <BrowserRouter>
       <Routes>
@@ -107,7 +114,13 @@ export default function App() {
           />
           <Route
             index
-            element={<Progetti projects={projects} update={updateProject} />}
+            element={
+              <Progetti
+                projects={projects}
+                update={updateProject}
+                deleteProject={deleteProject}
+              />
+            }
           />
           <Route path="/profilo" element={<Profilo />} />
           <Route path="/logout" element={<Logout />} />
