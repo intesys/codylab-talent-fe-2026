@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
 
 .container {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -10,46 +10,38 @@
   width: min(60%, 100%);
   box-sizing: border-box;
   margin: 0 auto;
-  border: 2px solid #E2E8F0;
+  border: 2px solid #e2e8f0;
   border-radius: 8px;
-  
 }
 
 .listItem {
-  
-
-
   display: flex;
   flex-direction: row;
   gap: 8px;
-  background-color: #EEF2F7;
+  background-color: #eef2f7;
   padding: 10px 14px;
-  border-bottom: 0.5px solid #E2E8F0;
+  border-bottom: 0.5px solid #e2e8f0;
   flex-wrap: wrap;
-  
 }
 
 .info {
   padding: 3px;
   flex: 1 1 100px;
-  min-width: 0; 
+  min-width: 0;
   font-size: 11px;
   font-weight: 500;
   color: #718096;
   letter-spacing: 0.05em;
-  
 }
 
 .h1 {
   text-align: center;
   font-size: 18px;
   font-weight: 500;
-  color: #1A202C;
+  color: #1a202c;
   padding: 20px 16px 16px;
   margin: 0;
-  border-bottom: 0.5px solid #E2E8F0;
-
-  
+  border-bottom: 0.5px solid #e2e8f0;
 }
 
 @media (max-width: 480px) {
@@ -57,4 +49,3 @@
     display: none;
   }
 }
-
