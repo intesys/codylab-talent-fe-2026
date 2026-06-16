@@ -7,3 +7,14 @@
   width: 60%;
   margin: 0 auto;
 }
+.intestation {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  background-color: #e7e061;
+}
+
+.category {
+  padding: 3px;
+  width: 25%;
+}

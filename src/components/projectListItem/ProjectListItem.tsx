@@ -72,12 +72,8 @@ export default function ProjectListItem({ id, date, title, ore, percentage, onDe
                     <div className={styles.info}>{ore}</div>
                     <div className={styles.info}>{percentage}%</div>
 
-                    {id !== 1 && (
-                        <>
-                            <button onClick={handleStartEdit}>Modifica</button>
-                            <button onClick={() => onDelete(id)}>Elimina</button>
-                        </>
-                    )}
+                    <button onClick={handleStartEdit}>Modifica</button>
+                    <button onClick={() => onDelete(id)}>Elimina</button>
                 </>
             )}
         </li>
