@@ -7,7 +7,12 @@ type ProjectListItemProps = {
   percentage: string;
 };
 
-export default function ProjectListItem({ date, title, ore, percentage }: ProjectListItemProps) {
+export default function ProjectListItem({
+  date,
+  title,
+  ore,
+  percentage,
+}: ProjectListItemProps) {
   return (
     <li className={styles.listItem}>
       <div className={styles.info}>{date}</div>
