@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styles from "./ProjectListItem.module.css";
 
-// i campi modificabili di un progetto (l'id non si tocca)
 type ProjectFields = {
     date: string;
     title: string;
@@ -10,40 +9,31 @@ type ProjectFields = {
 };
 
 type ProjectListItemProps = {
-    id: number; // Aggiunto
+    id: number;
     date: string;
     title: string;
     ore: string;
     percentage: string;
-    onDelete: (id: number) => void; // Aggiunto così ogni riga sa il proprio id e può eliminarsi con questa funizone
-    onEdit: (id: number, fields: ProjectFields) => void; // Aggiunto: salva le modifiche della riga
+    onDelete: (id: number) => void;
+    onEdit: (id: number, fields: ProjectFields) => void;
 };
 
-//aggiunti id, onDelete e onEdit ai props passati alla funzione
 export default function ProjectListItem({ id, date, title, ore, percentage, onDelete, onEdit }: ProjectListItemProps) {
-    // isEditing: dice se la riga è in modalità modifica
     const [isEditing, setIsEditing] = useState(false);
-    // draft: copia locale dei valori mentre l'utente sta modificando
     const [draft, setDraft] = useState<ProjectFields>({ date, title, ore, percentage });
 
-    // entra in modifica ripartendo sempre dai valori attuali
     const handleStartEdit = () => {
         setDraft({ date, title, ore, percentage });
         setIsEditing(true);
     };
 
-    // salva: passa i nuovi valori al parent ed esce dalla modalità modifica
-    const handleSave = () => {
+    // chiamata quando si invia il form
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
         onEdit(id, draft);
         setIsEditing(false);
     };
 
-    // annulla: esce senza salvare
-    const handleCancel = () => {
-        setIsEditing(false);
-    };
-
-    // aggiorna un singolo campo del draft mentre si scrive
     const handleChange = (field: keyof ProjectFields, value: string) => {
         setDraft({ ...draft, [field]: value });
     };
@@ -51,7 +41,7 @@ export default function ProjectListItem({ id, date, title, ore, percentage, onDe
     return (
         <li className={styles.listItem}>
             {isEditing ? (
-                <>
+                <form className={styles.listItem} onSubmit={handleSubmit}>
                     <input
                         className={styles.info}
                         value={draft.date}
@@ -72,9 +62,9 @@ export default function ProjectListItem({ id, date, title, ore, percentage, onDe
                         value={draft.percentage}
                         onChange={(e) => handleChange("percentage", e.target.value)}
                     />
-                    <button onClick={handleSave}>Salva</button>
-                    <button onClick={handleCancel}>Annulla</button>
-                </>
+                    <button type="submit">Salva</button>
+                    <button type="button" onClick={() => setIsEditing(false)}>Annulla</button>
+                </form>
             ) : (
                 <>
                     <div className={styles.info}>{date}</div>
@@ -82,7 +72,6 @@ export default function ProjectListItem({ id, date, title, ore, percentage, onDe
                     <div className={styles.info}>{ore}</div>
                     <div className={styles.info}>{percentage}%</div>
 
-                    {/* Mostriamo i bottoni solo se l'ID è diverso da 1 (cioè non è l'intestazione) */}
                     {id !== 1 && (
                         <>
                             <button onClick={handleStartEdit}>Modifica</button>
