@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import "../addNewProject.moduel.css";
 import Header from "../components/header/Header";
 import { useNavigate } from "react-router";
-import { products } from "./progetti";
+import type { Project } from "../App";
 
 //validazione dei campi
 const add_new_project_schema = z.object({
@@ -31,7 +31,8 @@ const add_new_project_schema = z.object({
     .min(0, "Completamento deve essere almeno 0%")
     .max(100, "Completamento non può superare 100%"),
 });
-function AddNewProject() {
+
+function AddNewProject({ add }: { add: (project: Project) => void }) {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -54,7 +55,7 @@ function AddNewProject() {
       return errors;
     },
     //funzione del submit
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: (values) => {
       const nuovoProgetto = {
         date: values.date,
         title: values.title,
@@ -62,11 +63,10 @@ function AddNewProject() {
         percentage: values.percentage.toString(),
         id: Date.now(),
       };
-      products.push(nuovoProgetto);
+      add(nuovoProgetto);
 
       alert("Progetto aggiunto con successo!");
-      resetForm();
-      navigate("/progetti");
+      navigate("/");
     },
   });
 
