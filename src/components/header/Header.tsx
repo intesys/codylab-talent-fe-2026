@@ -38,9 +38,15 @@ function Header() {
             </Link>
           </li>
           <li>
-              <Link to="/" onClick={() => { localStorage.removeItem("auth_token"); setMenuAperto(false); }}>
-                  Logout
-              </Link>
+            <Link
+              to="/"
+              onClick={() => {
+                localStorage.removeItem("token");
+                setMenuAperto(false);
+              }}
+            >
+              Logout
+            </Link>
           </li>
         </ul>
       </nav>
