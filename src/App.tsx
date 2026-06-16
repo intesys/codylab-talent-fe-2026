@@ -17,13 +17,6 @@ export type Project = {
 export default function App() {
   const [projects, setProjects] = useState<Project[]>([
     {
-      date: "DATE",
-      title: "TITOLO",
-      ore: "ORE TOTALI",
-      percentage: "COMPLETAMENTO",
-      id: 1,
-    },
-    {
       date: "2023-10-02",
       title: "Progetto Talent",
       ore: "50",
