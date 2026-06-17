@@ -4,6 +4,7 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import Button from "./components/Button";
 import TextField from "./components/TextField";
 import "./login.css";
+import { useState } from "react";
 
 const loginSchema = z.object({
   username: z
@@ -15,10 +16,10 @@ const loginSchema = z.object({
     .string()
     .min(8, "Password deve avere almeno 8 caratteri")
     .max(50, "Password troppo lunga")
-    .regex(/[A-Z]/, "Serve almeno una maiuscola")
-    .regex(/[a-z]/, "Serve almeno una minuscola")
-    .regex(/[0-9]/, "Serve almeno un numero")
-    .regex(/[!@#$%^&*]/, "Serve almeno un carattere speciale"),
+    //.regex(/[A-Z]/, "Serve almeno una maiuscola")
+    .regex(/[a-z]/, "Serve almeno una minuscola"),
+  //.regex(/[0-9]/, "Serve almeno un numero")
+  //.regex(/[!@#$%^&*]/, "Serve almeno un carattere speciale"),
 });
 
 function Login({
@@ -26,15 +27,46 @@ function Login({
 }: {
   setIsAuthenticated: (value: boolean) => void;
 }) {
+  const [loginError, setLoginError] = useState<string | null>(null);
   const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
     },
     validationSchema: toFormikValidationSchema(loginSchema),
-    onSubmit: () => {
-      localStorage.setItem("token", "fake-jwt-token");
-      setIsAuthenticated(true);
+    onSubmit: (values, { setSubmitting }) => {
+      setLoginError(null);
+      fetch("https://dummyjson.com/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: values.username,
+          password: values.password,
+          expiresInMins: 30,
+        }),
+      })
+        .then((response) => {
+          return response.json().then((data) => {
+            if (!response.ok) {
+              throw new Error(data.message || "Credenziali non valide");
+            }
+            return data;
+          });
+        })
+        .then((data) => {
+          // Salva il token nel localStorage
+          const lavedaToken = data.token || data.accessToken;
+          if (lavedaToken) {
+            localStorage.setItem("token", lavedaToken);
+            setIsAuthenticated(true);
+          }
+        })
+        .catch((error) => {
+          setLoginError(error.message || "Errore durante il login");
+        })
+        .finally(() => {
+          setSubmitting(false);
+        });
     },
   });
 
@@ -62,6 +94,7 @@ function Login({
             error={formik.touched.password && formik.errors.password}
           />
           <Button type="submit">Login</Button>
+          {loginError && <div className="error-message">{loginError}</div>}
         </form>
       </div>
     </div>

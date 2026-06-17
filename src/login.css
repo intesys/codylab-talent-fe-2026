@@ -21,3 +21,17 @@
     padding: 20px;
   }
 }
+.error-message {
+  margin-top: 15px;
+  background-color: #fff5f5;
+  color: #e53e3e;
+  border: 1px solid #fed7d7;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 20px;
+
+  animation: fadeIn 0.2s ease-in-out;
+}
