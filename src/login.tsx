@@ -15,10 +15,10 @@ const loginSchema = z.object({
     .string()
     .min(8, "Password deve avere almeno 8 caratteri")
     .max(50, "Password troppo lunga")
-    .regex(/[A-Z]/, "Serve almeno una maiuscola")
-    .regex(/[a-z]/, "Serve almeno una minuscola")
-    .regex(/[0-9]/, "Serve almeno un numero")
-    .regex(/[!@#$%^&*]/, "Serve almeno un carattere speciale"),
+//    .regex(/[A-Z]/, "Serve almeno una maiuscola")
+//    .regex(/[a-z]/, "Serve almeno una minuscola")
+//    .regex(/[0-9]/, "Serve almeno un numero")
+//    .regex(/[!@#$%^&*]/, "Serve almeno un carattere speciale"),
 });
 
 function Login({
@@ -26,15 +26,47 @@ function Login({
 }: {
   setIsAuthenticated: (value: boolean) => void;
 }) {
+
   const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
     },
+
     validationSchema: toFormikValidationSchema(loginSchema),
-    onSubmit: () => {
-      localStorage.setItem("token", "fake-jwt-token");
-      setIsAuthenticated(true);
+    onSubmit: async (values) => {
+      try {
+        //chiama il posto con gli username e le password, devi mettere per forza una combinazione che c'è qui dentro
+        const response = await fetch("https://dummyjson.com/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: values.username,
+            password: values.password,
+          }),
+        });
+
+        if (!response.ok) {
+          // Gestisce l'errore se le credenziali sono errate
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Errore durante il login");
+        }
+
+        const data = await response.json();
+
+        // Memorizza accessToken
+        localStorage.setItem("accessToken", data.accessToken);
+
+        // Aggiorna lo stato di autenticazione
+        setIsAuthenticated(true);
+
+      } catch (error) {
+        console.error("Login failed:", error);
+        // Gestione base dell'errore
+        alert("Username o password errati. Riprova.");
+      }
     },
   });
 
@@ -69,3 +101,11 @@ function Login({
 }
 
 export default Login;
+
+
+
+/* password valide che ho trovato:
+emilys	emilyspass
+michaelw	michaelwpass
+sophiab	sophiabpass
+ */
