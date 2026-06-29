@@ -5,20 +5,16 @@ import Button from "./components/Button";
 import TextField from "./components/TextField";
 import "./login.css";
 
+// Adattato lo schema per accettare gli utenti di test di DummyJSON (es: username "emilys", password "emilyspass")
 const loginSchema = z.object({
   username: z
     .string()
-    .min(5, "Username deve avere almeno 5 caratteri")
-    .max(25, "Username troppo lungo")
-    .regex(/^[a-zA-Z0-9_]+$/, "Solo lettere, numeri e underscore"),
+    .min(3, "Username troppo corto")
+    .max(25, "Username troppo lungo"),
   password: z
     .string()
-    .min(8, "Password deve avere almeno 8 caratteri")
-    .max(50, "Password troppo lunga")
-    .regex(/[A-Z]/, "Serve almeno una maiuscola")
-    .regex(/[a-z]/, "Serve almeno una minuscola")
-    .regex(/[0-9]/, "Serve almeno un numero")
-    .regex(/[!@#$%^&*]/, "Serve almeno un carattere speciale"),
+    .min(4, "Password troppo corta")
+    .max(50, "Password troppo lunga"),
 });
 
 function Login({
@@ -32,9 +28,38 @@ function Login({
       password: "",
     },
     validationSchema: toFormikValidationSchema(loginSchema),
-    onSubmit: () => {
-      localStorage.setItem("token", "fake-jwt-token");
-      setIsAuthenticated(true);
+    onSubmit: async (values) => {
+      try {
+        // 1. Invia la richiesta HTTP POST all'endpoint di autenticazione di DummyJSON
+        const response = await fetch("https://dummyjson.com/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: values.username,
+            password: values.password,
+            expiresInMins: 30, // Opzionale: tempo di scadenza del token
+          }),
+        });
+
+        // 2. Se la risposta non è andata a buon fine (es: credenziali errate)
+        if (!response.ok) {
+          throw new Error("Credenziali non valide");
+        }
+
+        // 3. Converte la risposta in formato JSON
+        const data = await response.json();
+
+        // 4. Memorizza l'accessToken reale restituito dal server nel localStorage
+        localStorage.setItem("token", data.accessToken);
+        
+        // 5. Aggiorna lo stato globale per autenticare l'utente
+        setIsAuthenticated(true);
+        
+        console.log("Login effettuato con successo! Dati utente:", data);
+      } catch (error) {
+        console.error("Errore durante il login:", error);
+        alert("Errore durante il login. Controlla il tuo username e la tua password.");
+      }
     },
   });
 
