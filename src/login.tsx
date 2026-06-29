@@ -54,7 +54,7 @@ function Login({
 
         const token = data.accessToken;
         if (token) {
-          localStorage.setItem("accessToken", token); 
+          localStorage.setItem("accessToken", token);
           setIsAuthenticated(true);
         }
       } catch (error: any) {
@@ -64,6 +64,7 @@ function Login({
       }
     }
   });
+
 
   return (
     <div className="login-page">
