@@ -4,6 +4,7 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import Button from "./components/Button";
 import TextField from "./components/TextField";
 import "./login.css";
+import { useState } from "react";
 
 const loginSchema = z.object({
   username: z
@@ -26,16 +27,42 @@ function Login({
 }: {
   setIsAuthenticated: (value: boolean) => void;
 }) {
+  const [loginError, setLoginError] = useState<string | null>(null);
   const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
     },
     validationSchema: toFormikValidationSchema(loginSchema),
-    onSubmit: () => {
-      localStorage.setItem("token", "fake-jwt-token");
-      setIsAuthenticated(true);
-    },
+    onSubmit: async (values, { setSubmitting }) => {
+      setLoginError(null);
+      try {
+        const response = await fetch("https://dummyjson.com/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: values.username,
+            password: values.password,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || "Credenziali non valide");
+        }
+
+        const token = data.accessToken;
+        if (token) {
+          localStorage.setItem("accessToken", token); 
+          setIsAuthenticated(true);
+        }
+      } catch (error: any) {
+        setLoginError(error.message || "Errore durante il login");
+      } finally {
+        setSubmitting(false);
+      }
+    }
   });
 
   return (
@@ -62,6 +89,8 @@ function Login({
             error={formik.touched.password && formik.errors.password}
           />
           <Button type="submit">Login</Button>
+          {loginError &&
+              <div className="errore-messaggio" style={{ color: "red", marginTop: "10px" }}>{loginError}</div>}
         </form>
       </div>
     </div>
