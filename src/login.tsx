@@ -52,7 +52,7 @@ function Login({
 
         // se la risposta non e ok lancio un errore
         if (!response.ok) {
-          throw new Error("Credenziali non valide");
+          throw new Error("errore");
         }
 
         // prendo i dati con il token
