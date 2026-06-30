@@ -28,22 +28,6 @@
   
 }
 
-.buttonDelete {
-  display: flex;
-  padding-bottom: 8px;
-  padding-top: 8px;
-  padding-right: 12px;
-  padding-left: 12px;
-  height: 36px;
-  width: 44px;
-  margin: 4px;
-  border-radius: 4px;
-  align-items: center;
-  background: #ffffff url(bottonImages/Delete.svg) no-repeat center;
-  border: 1px solid #0F33CE;
-  cursor: pointer;
-}
-
 .bottoncircle {
   display: flex;
   padding-bottom: 8px;
@@ -52,13 +36,111 @@
   padding-left: 12px;
   height: 36px;
   width: 44px;
-  margin: 4px;
   border-radius: 4px;
   align-items: center;
   row-gap: 8px;
   background: #0F33CE url(bottonImages/PlusCircle.svg) no-repeat center;
   border: 0px;
   cursor: pointer;
+}
+
+.buttonDelete {
+  display: flex;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  padding-right: 12px;
+  padding-left: 12px;
+  height: 36px;
+  width: 44px;
+  border-radius: 4px;
+  align-items: center;
+  background: #ffffff url(bottonImages/Delete.svg) no-repeat center;
+  border: 1px solid #0F33CE;
+  cursor: pointer;
+}
+
+.buttonFilter1{
+  width: 18px;
+  height: 18px;
+  aspect-ratio: 1/1;
+  right: 11px;
+  background: #ffffff url(bottonImages/filter-1.svg) no-repeat center;
+  border: 0px;
+}
+
+.buttonDetails{
+  display: flex;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-right:12px;
+  padding-left:12px;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  color: #ffffff;
+  border-radius: 4px;
+  background: #0F33CE;
+  border: 0px;
+}
+
+.buttonApply{
+  display: flex;
+  height: 36px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  align-items: center;
+  gap:8px;
+  border-radius: 4px;
+  background: #ffffff;
+  border: 1px solid #0F33CE;
+  color:#0F33CE;
+  font-weight: bold;
+}
+
+.buttonTable{
+  display: flex;
+  height: 25px;
+  width: 30px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  background: #ffffff url(bottonImages/table-1.svg) no-repeat center;
+  box-shadow: 0 0 4px 1px rgba(13, 21, 26, 0.15);
+  border:0px;
+}
+
+
+.buttonGraph{
+  display: flex;
+  height: 25px;
+  width: 30px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff url(bottonImages/chart-bar-1.svg) no-repeat center;
+  border-radius: 4px;
+  border: 0px;
+}
+
+.buttonExport{
+  display: flex;
+  height: 36px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  align-items: center;
+  gap: 8px;
+  border-radius:4px;
+  border: 1px solid #0F33CE;
+  background: #ffffff;
+  color:#0F33CE;
+  font-weight: bold;
 }
 
 .button:hover {
