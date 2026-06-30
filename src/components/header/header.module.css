@@ -1,39 +1,39 @@
 .header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 28px;
+  justify-content: space-between; /* logo a sinistra, azioni a destra */
+  align-items: center;            /* tutto centrato in altezza */
+  padding: 0 28px;                /* spazio ai lati */
 
   height: 64px;
-  box-sizing: border-box;
+  box-sizing: border-box; /* il padding sta dentro l'altezza, non la allarga */
 
-  /* gradiente blu -> verde */
+  /* gradiente blu -> verde con i colori esatti del figma */
   background: linear-gradient(90deg, #0f33ce 0%, #17fdb4 100%);
 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  position: relative;
-  z-index: 50;
+  position: relative; /* fa da "ancora" ai menu a tendina che si aprono sotto */
+  z-index: 50;        /* tiene la barra sopra al resto della pagina */
 }
 
 /* logo */
 .logo {
   display: flex;
-  align-items: center;   
-  gap: 12px;
+  align-items: center; /* centra logo e sottotitolo in altezza */
+  gap: 12px;           /* spazio tra immagine e scritta */
   text-decoration: none;
   transition: opacity 0.2s ease;
 }
-.logo:hover { opacity: 0.9; }
+.logo:hover { opacity: 0.9; } /* si schiarisce un po' al passaggio del mouse */
 
 .logoImg {
-  height: 26px; 
+  height: 26px;   /* fisso l'altezza, la larghezza si adatta da sola */
   width: auto;
-  display: block;
+  display: block; /* toglie lo spazietto bianco sotto l'immagine */
 }
 .logoSottotitolo {
   font-size: 15px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.85); /* bianco leggermente trasparente */
 }
 
 /* parte destra */
@@ -42,7 +42,7 @@
   align-items: center;
   gap: 12px;
 }
-.dropdownWrap { position: relative; }
+.dropdownWrap { position: relative; } /* ancora per il menu che si apre sotto */
 
 .bottoneIcona {
   display: flex;
@@ -52,24 +52,24 @@
   height: 40px;
   border: none;
   border-radius: 8px;
-  background-color: transparent;
+  background-color: transparent; /* sfondo invisibile, si vede il gradiente */
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
-.bottoneIcona:hover { background-color: rgba(255, 255, 255, 0.18); }
+.bottoneIcona:hover { background-color: rgba(255, 255, 255, 0.18); } /* alone bianco */
 
-/* l'icona è nera nel file */
 .iconaGriglia {
   width: 22px;
   height: 22px;
+  /* l'svg è già nero, quindi niente filtro */
 }
 
 .bottoneProfilo {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 6px;             /* spazio tra avatar e freccia */
   border: none;
-  border-radius: 999px;
+  border-radius: 999px; /* numero altissimo = forma a pillola */
   background-color: transparent;
   cursor: pointer;
   padding: 4px 8px 4px 4px;
@@ -80,60 +80,58 @@
 .avatar {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%; /* 50% = cerchio perfetto */
+  object-fit: cover;  /* la foto riempie il cerchio senza deformarsi */
+  border: 2px solid rgba(255, 255, 255, 0.7); /* bordino bianco */
   display: block;
 }
 
-/* anche la freccia è nera nel file, la faccio bianca e la giro quando apro */
 .chevron {
   width: 12px;
   height: 12px;
-  filter: brightness(0) invert(1);
-  transition: transform 0.2s ease;
+  filter: brightness(0) invert(1); /* l'svg è nero, questo lo rende bianco */
+  transition: transform 0.2s ease; /* rende morbida la rotazione */
 }
-.chevronAperto { transform: rotate(180deg); }
+.chevronAperto { transform: rotate(180deg); } /* freccia girata quando il menu è aperto */
 
 /* menu a tendina */
 .dropdown {
-  position: absolute;
-  top: calc(100% + 10px);
+  position: absolute;     /* esce dal flusso e si posiziona da solo */
+  top: calc(100% + 10px); /* parte sotto il bottone + 10px di stacco */
   left: 0;
-  min-width: 200px;
+  min-width: 200px;       /* larghezza minima così non è schiacciato */
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
-  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.25); /* ombra morbida sotto */
   padding: 6px;
   display: flex;
-  flex-direction: column;
-  z-index: 100;
+  flex-direction: column; /* le voci una sotto l'altra */
+  z-index: 100;           /* sopra a tutto */
 }
-.dropdownDestra { left: auto; right: 0; }
+.dropdownDestra { left: auto; right: 0; } /* allinea il menu profilo a destra */
 
-/* le voci sono dei button */
 .voce {
   border: none;
   background: transparent;
-  text-align: left;
-  width: 100%;
+  text-align: left;     /* testo a sinistra dentro il bottone */
+  width: 100%;          /* la voce occupa tutta la larghezza del menu */
   cursor: pointer;
   color: #334155;
   font-size: 14px;
   font-weight: 500;
-  font-family: inherit;
+  font-family: inherit; /* eredita il font dell'header */
   padding: 10px 12px;
   border-radius: 8px;
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 .voce:hover {
-  background-color: #f1f5f9;
-  color: #1d4ed8;
+  background-color: #f1f5f9; /* sfondo grigino al passaggio */
+  color: #1d4ed8;            /* testo blu al passaggio */
 }
 
-/* mobile */
+/* mobile: scatta a 768px di larghezza o meno */
 @media (max-width: 768px) {
   .header { padding: 0 16px; }
-  .logoSottotitolo { display: none; } /* su mobile lascio solo il logo */
+  .logoSottotitolo { display: none; } /* nascondo il sottotitolo su schermi piccoli */
 }
