@@ -89,9 +89,7 @@ export default function ProjectListItem({
           <div className={styles.info}>{percentage}%</div>
           <button className={styles.bottoncircle} onClick={handleStartEdit}> </button>
           <div className={styles.info}>
-            <button className={styles.buttonDelete} onClick={() => onDelete(id)}>
-              Elimina
-            </button>
+            <button className={styles.buttonDelete} onClick={() => onDelete(id)}> </button>
           </div>
         </>
       )}
