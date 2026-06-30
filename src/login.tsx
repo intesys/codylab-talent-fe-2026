@@ -94,12 +94,7 @@ function Login({
             onBlur={formik.handleBlur}
             error={formik.touched.password && formik.errors.password}
           />
-          {/* se ce un errore lo mostro a schermo */}
-          {apiError && (
-            <div style={{ color: 'red', marginBottom: '15px', fontSize: '14px' }}>
-              {apiError}
-            </div>
-          )}
+          
           
           {/* blocco il bottone se sta caricando */}
           <Button type="submit" disabled={formik.isSubmitting}>
