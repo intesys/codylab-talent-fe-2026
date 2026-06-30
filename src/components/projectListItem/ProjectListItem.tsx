@@ -94,8 +94,11 @@ export default function ProjectListItem({
           <button className={styles.buttonFilter1}> </button>
           <button className={styles.buttonDetails}>Visualizza Dettaglio </button>
           <button className={styles.buttonApply}>Applica</button>
-          <button className={styles.buttonTable}></button>
-          <button className={styles.buttonGraph}></button>
+
+          <div className={styles.default}>
+            <button className={styles.buttonTable}></button>
+            <button className={styles.buttonGraph}></button>
+          </div>
 
           <button className={styles.buttonExport}>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
