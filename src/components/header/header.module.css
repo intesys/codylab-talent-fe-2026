@@ -2,126 +2,138 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 32px;
+  padding: 0 28px;
 
-  height: 70px;
-  max-height: 70px;
+  height: 64px;
+  box-sizing: border-box;
 
-  background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  /* gradiente blu -> verde */
+  background: linear-gradient(90deg, #0f33ce 0%, #17fdb4 100%);
 
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   position: relative;
   z-index: 50;
-  box-sizing: border-box;
 }
 
+/* logo */
 .logo {
   display: flex;
-  align-items: center;
-}
-
-.logo a {
+  align-items: center;   
+  gap: 12px;
   text-decoration: none;
-  display: inline-block;
   transition: opacity 0.2s ease;
 }
+.logo:hover { opacity: 0.9; }
 
-.logo a:hover {
-  opacity: 0.85;
+.logoImg {
+  height: 26px; 
+  width: auto;
+  display: block;
+}
+.logoSottotitolo {
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
 }
 
-.logo h1 {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 700;
-  color: #0f172a;
-  letter-spacing: -0.5px;
-
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-.menu {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+/* parte destra */
+.azioni {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 12px;
+}
+.dropdownWrap { position: relative; }
+
+.bottoneIcona {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.bottoneIcona:hover { background-color: rgba(255, 255, 255, 0.18); }
+
+/* l'icona è nera nel file */
+.iconaGriglia {
+  width: 22px;
+  height: 22px;
 }
 
-.menu a {
-  text-decoration: none;
-  color: #475569;
+.bottoneProfilo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  border-radius: 999px;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 4px 8px 4px 4px;
+  transition: background-color 0.2s ease;
+}
+.bottoneProfilo:hover { background-color: rgba(255, 255, 255, 0.18); }
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  display: block;
+}
+
+/* anche la freccia è nera nel file, la faccio bianca e la giro quando apro */
+.chevron {
+  width: 12px;
+  height: 12px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.2s ease;
+}
+.chevronAperto { transform: rotate(180deg); }
+
+/* menu a tendina */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 200px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.25);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+.dropdownDestra { left: auto; right: 0; }
+
+/* le voci sono dei button */
+.voce {
+  border: none;
+  background: transparent;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  color: #334155;
+  font-size: 14px;
   font-weight: 500;
-  font-size: 15px;
   font-family: inherit;
-  transition: color 0.2s ease;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.voce:hover {
+  background-color: #f1f5f9;
+  color: #1d4ed8;
 }
 
-.menu a:hover {
-  color: #2563eb;
-}
-
-.bottoneMenu {
-  display: none;
-}
-
+/* mobile */
 @media (max-width: 768px) {
-  .header {
-    padding: 0 20px;
-  }
-
-  .bottoneMenu {
-    display: block;
-    background-color: transparent;
-    border: none;
-    font-size: 26px;
-    color: #0f172a;
-    cursor: pointer;
-    z-index: 110;
-    font-family: inherit;
-  }
-
-  .nav {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 280px;
-    height: 100vh;
-    background-color: #ffffff;
-    box-shadow: -10px 0 25px -5px rgba(0, 0, 0, 0.1);
-    padding: 100px 24px 40px 24px;
-    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 100;
-    box-sizing: border-box;
-  }
-
-  .nav.aperto {
-    right: 0;
-  }
-
-  .menu {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-  }
-
-  .menu a {
-    font-size: 18px;
-    color: #0f172a;
-    width: 100%;
-    padding: 8px 0;
-    border-bottom: 1px solid #f1f5f9;
-  }
-
-  .menu a:hover {
-    color: #2563eb;
-  }
+  .header { padding: 0 16px; }
+  .logoSottotitolo { display: none; } /* su mobile lascio solo il logo */
 }
