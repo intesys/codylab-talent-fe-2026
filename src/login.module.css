@@ -8,12 +8,13 @@
 }
 
 .login-box {
-  border: 1px solid black;
   padding: 30px;
   width: 100%;
   max-width: 350px;
   text-align: center;
   box-sizing: border-box;
+  border-radius: 4px;
+  background: rgba(231, 234, 247, 0.5);
 }
 
 .error {
@@ -25,4 +26,97 @@
   .login-box {
     padding: 20px;
   }
+}
+
+.login-box h2 {
+  font-family: "Work Sans", "Segoe UI";
+  font-size: 18px;
+  font-style: normal;
+  color: #000;
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+  font-family: "SF Pro", "Segoe UI";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.input-field input {
+  color: var(--input-color-text-active, #000);
+  font-family: "SF Pro", "Segoe UI";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  padding: 8px 12px 8px 12px;
+  border-radius: var(--input-radius-base, 4px);
+  border: var(--input-stroke-weight, 1px) solid
+    var(--input-color-stroke-default, #ced4da);
+  background: var(--input-color-background-default, #fff);
+}
+
+.input-field input:focus {
+  border-color: #868e96;
+  background-color: #ffff;
+  outline: auto #868e96;
+}
+
+.input-field input::placeholder {
+  color: var(--input-color-text-active, #000);
+  font-family: "SF Pro", "Segoe UI";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.Button {
+  background-color: #0f33ce;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 12px 20px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.15);
+
+  border-radius: var(--button-radius-base, 4px);
+  background: var(--button-color-filled-primary-background-default, #0f33ce);
+}
+
+.login-box button:hover {
+  background-color: #0056b3;
+}
+
+.login-box button:active {
+  border-radius: var(--button-radius-base, 4px);
+  background: var(--button-color-filled-primary-background-default, #0f33ce);
+}
+
+.login-box button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
 }

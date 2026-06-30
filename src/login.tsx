@@ -68,24 +68,26 @@ function Login({
       <div className={style["login-box"]}>
         <h2>Intesys Gestione Progetti</h2>
         <form onSubmit={formik.handleSubmit}>
-          <TextField
-            type="text"
-            name="username"
-            placeholder="Username"
-            value={formik.values.username}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.username && formik.errors.username}
-          />
-          <TextField
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.password && formik.errors.password}
-          />
+          <div className={style["input-field"]}>
+            <TextField
+              type="text"
+              name="username"
+              placeholder="Username"
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.username && formik.errors.username}
+            />
+            <TextField
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.password && formik.errors.password}
+            />
+          </div>
           {serverSideError && (
             <div className={style["error"]}>{serverSideError}</div>
           )}
