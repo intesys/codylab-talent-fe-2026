@@ -16,6 +16,11 @@
   box-sizing: border-box;
 }
 
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
 @media (max-width: 480px) {
   .login-box {
     padding: 20px;

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import style from "./header.module.css";
 import { Link } from "react-router";
+import { ACCESS_TOKEN_KEY } from "../../consts";
 
 function Header() {
   const [menuAperto, setMenuAperto] = useState(false);
@@ -41,7 +42,7 @@ function Header() {
             <Link
               to="/"
               onClick={() => {
-                localStorage.removeItem("token");
+                localStorage.removeItem(ACCESS_TOKEN_KEY);
                 setMenuAperto(false);
               }}
             >

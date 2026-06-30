@@ -3,7 +3,9 @@ import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import Button from "./components/Button";
 import TextField from "./components/TextField";
-import "./login.css";
+import style from "./login.module.css";
+import { useState } from "react";
+import { ACCESS_TOKEN_KEY } from "./consts";
 
 const loginSchema = z.object({
   username: z
@@ -14,11 +16,11 @@ const loginSchema = z.object({
   password: z
     .string()
     .min(8, "Password deve avere almeno 8 caratteri")
-    .max(50, "Password troppo lunga")
-    .regex(/[A-Z]/, "Serve almeno una maiuscola")
-    .regex(/[a-z]/, "Serve almeno una minuscola")
-    .regex(/[0-9]/, "Serve almeno un numero")
-    .regex(/[!@#$%^&*]/, "Serve almeno un carattere speciale"),
+    .max(50, "Password troppo lunga"),
+  // .regex(/[A-Z]/, "Serve almeno una maiuscola")
+  // .regex(/[a-z]/, "Serve almeno una minuscola")
+  // .regex(/[0-9]/, "Serve almeno un numero")
+  // .regex(/[!@#$%^&*]/, "Serve almeno un carattere speciale"),
 });
 
 function Login({
@@ -26,21 +28,44 @@ function Login({
 }: {
   setIsAuthenticated: (value: boolean) => void;
 }) {
+  const [serverSideError, setServerSideError] = useState<string | null>(null);
+
   const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
     },
     validationSchema: toFormikValidationSchema(loginSchema),
-    onSubmit: () => {
-      localStorage.setItem("token", "fake-jwt-token");
-      setIsAuthenticated(true);
+    onSubmit: async (values) => {
+      try {
+        const result = await fetch("https://dummyjson.com/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values),
+        });
+
+        const responseBody = await result.json();
+
+        if (!result.ok) {
+          const errorMessage =
+            responseBody.message || "Qualcosa è andato storto durante il login";
+          setServerSideError(errorMessage);
+          throw new Error(errorMessage);
+        }
+
+        if (responseBody.accessToken) {
+          localStorage.setItem(ACCESS_TOKEN_KEY, responseBody.accessToken);
+          setIsAuthenticated(true);
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
   });
 
   return (
-    <div className="login-page">
-      <div className="login-box">
+    <div className={style["login-page"]}>
+      <div className={style["login-box"]}>
         <h2>Intesys Gestione Progetti</h2>
         <form onSubmit={formik.handleSubmit}>
           <TextField
@@ -61,6 +86,9 @@ function Login({
             onBlur={formik.handleBlur}
             error={formik.touched.password && formik.errors.password}
           />
+          {serverSideError && (
+            <div className={style["error"]}>{serverSideError}</div>
+          )}
           <Button type="submit">Login</Button>
         </form>
       </div>
