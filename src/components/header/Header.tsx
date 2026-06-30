@@ -8,7 +8,9 @@ function Header() {
   return (
     <header className={style.header}>
       <div className={style.logo}>
-        <h1>Intesys Gestione Progetto</h1>
+        <Link to="/">
+          <h1>Intesys Gestione Progetto</h1>
+        </Link>
       </div>
 
       <button
@@ -20,6 +22,11 @@ function Header() {
 
       <nav className={`${style.nav} ${menuAperto ? style.aperto : ""}`}>
         <ul className={style.menu}>
+          <li>
+            <Link to="/add-new-project" onClick={() => setMenuAperto(false)}>
+              Aggiungi Nuovo Progetto
+            </Link>
+          </li>
           <li>
             <Link to="/progetti" onClick={() => setMenuAperto(false)}>
               Progetti
