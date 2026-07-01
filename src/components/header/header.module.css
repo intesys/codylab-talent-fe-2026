@@ -2,16 +2,16 @@
   display: flex;
   justify-content: space-between; /* logo a sinistra, azioni a destra */
   align-items: center;            /* tutto centrato in altezza */
-  padding: 0 28px;                /* spazio ai lati */
+  padding: 0 16px;                /* spazio ai lati (da figma) */
 
-  height: 64px;
-  box-sizing: border-box; /* il padding sta dentro l'altezza, non la allarga */
+  height: 56px;
+  box-sizing: border-box; /* il padding non allarga l'altezza */
 
   /* gradiente blu -> verde con i colori esatti del figma */
   background: linear-gradient(90deg, #0f33ce 0%, #17fdb4 100%);
 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  position: relative; /* fa da "ancora" ai menu a tendina che si aprono sotto */
+  position: relative; /* fa da ancora ai menu a tendina */
   z-index: 50;        /* tiene la barra sopra al resto della pagina */
 }
 
@@ -19,28 +19,29 @@
 .logo {
   display: flex;
   align-items: center; /* centra logo e sottotitolo in altezza */
-  gap: 12px;           /* spazio tra immagine e scritta */
+  gap: 16px;           /* spazio tra logo e sottotitolo (da figma) */
   text-decoration: none;
   transition: opacity 0.2s ease;
 }
-.logo:hover { opacity: 0.9; } /* si schiarisce un po' al passaggio del mouse */
+.logo:hover { opacity: 0.9; }
 
 .logoImg {
-  height: 26px;   /* fisso l'altezza, la larghezza si adatta da sola */
+  height: 30px;   /* l'immagine è 114x30 */
   width: auto;
   display: block; /* toglie lo spazietto bianco sotto l'immagine */
 }
 .logoSottotitolo {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.85); /* bianco leggermente trasparente */
+  line-height: 20px;
+  color: #ffffff;
 }
 
 /* parte destra */
 .azioni {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px; /* spazio tra griglia e avatar (da figma) */
 }
 .dropdownWrap { position: relative; } /* ancora per il menu che si apre sotto */
 
@@ -48,48 +49,47 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  padding: 10px; /* icona 24x24 + 10 di padding = 44x44 (da figma) */
   border: none;
   border-radius: 8px;
-  background-color: transparent; /* sfondo invisibile, si vede il gradiente */
+  background-color: transparent; /* si vede il gradiente sotto */
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 .bottoneIcona:hover { background-color: rgba(255, 255, 255, 0.18); } /* alone bianco */
 
 .iconaGriglia {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   /* l'svg è già nero, quindi niente filtro */
 }
 
 .bottoneProfilo {
   display: flex;
   align-items: center;
-  gap: 6px;             /* spazio tra avatar e freccia */
+  gap: 8px;             /* spazio tra avatar e freccia (da figma) */
   border: none;
   border-radius: 999px; /* numero altissimo = forma a pillola */
   background-color: transparent;
   cursor: pointer;
-  padding: 4px 8px 4px 4px;
+  padding: 4px 8px 4px 4px; /* gli 8px a destra sono lo stacco del chevron dal bordo */
   transition: background-color 0.2s ease;
 }
 .bottoneProfilo:hover { background-color: rgba(255, 255, 255, 0.18); }
 
 .avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%; /* 50% = cerchio perfetto */
+  width: 38px;
+  height: 38px;
+  border-radius: 50%; /* cerchio (resta cerchio anche se cambio la dimensione) */
   object-fit: cover;  /* la foto riempie il cerchio senza deformarsi */
-  border: 2px solid rgba(255, 255, 255, 0.7); /* bordino bianco */
+  border: 2px solid #000000; /* bordo nero da figma */
   display: block;
 }
 
 .chevron {
   width: 12px;
   height: 12px;
-  /*filter: brightness(0) invert(1);  l'svg è nero, questo lo rende bianco */
+  filter: brightness(0) invert(1); /* l'svg è nero, questo lo rende bianco */
   transition: transform 0.2s ease; /* rende morbida la rotazione */
 }
 .chevronAperto { transform: rotate(180deg); } /* freccia girata quando il menu è aperto */
@@ -97,7 +97,7 @@
 /* menu a tendina */
 .dropdown {
   position: absolute;     /* esce dal flusso e si posiziona da solo */
-  top: calc(100% + 10px); /* parte sotto il bottone + 10px di stacco */
+  top: calc(100% + 10px); /* sotto il bottone, con un po' di stacco */
   left: 0;
   min-width: 200px;       /* larghezza minima così non è schiacciato */
   background-color: #ffffff;
@@ -130,8 +130,7 @@
   color: #1d4ed8;            /* testo blu al passaggio */
 }
 
-/* mobile: scatta a 768px di larghezza o meno */
+/* mobile */
 @media (max-width: 768px) {
-  .header { padding: 0 16px; }
   .logoSottotitolo { display: none; } /* nascondo il sottotitolo su schermi piccoli */
 }
