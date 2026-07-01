@@ -6,6 +6,8 @@ import Logout from "./pages/logout";
 import Profilo from "./pages/profilo";
 import Progetti from "./pages/progetti";
 
+import TestButtons from "./components/button/TestButton"; //per testare i bottoni
+
 export type Project = {
   date: string;
   title: string;
@@ -124,6 +126,11 @@ export default function App() {
           />
           <Route path="/profilo" element={<Profilo />} />
           <Route path="/logout" element={<Logout />} />
+
+          {/* AGGIUNTO: Rotta per accedere alla schermata di test */} 
+          <Route path="/test-buttons" element={<TestButtons />} />
+
+
         </Route>
       </Routes>
     </BrowserRouter>
