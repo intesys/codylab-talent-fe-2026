@@ -18,6 +18,7 @@
 }
 
 .error {
+  font-family: "SF Pro", "Segoe UI";
   color: red;
   margin-top: 10px;
 }
@@ -28,7 +29,7 @@
   }
 }
 
-.login-box h2 {
+.login-title {
   font-family: "Work Sans", "Segoe UI";
   font-size: 18px;
   font-style: normal;
@@ -79,17 +80,7 @@
   line-height: 18px;
 }
 
-.Button {
-  background-color: #0f33ce;
-  color: #ffffff;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  padding: 8px 12px 8px 12px;
-}
-
-.login-box button {
+.button {
   width: 100%;
   padding: 8px 12px 8px 12px;
   color: #ffffff;
@@ -110,16 +101,16 @@
   text-transform: capitalize;
 }
 
-.login-box button:hover {
+.button:hover {
   background-color: #0056b3;
 }
 
-.login-box button:active {
+.button:active {
   border-radius: var(--button-radius-base, 4px);
   background: var(--button-color-filled-primary-background-default, #0f33ce);
 }
 
-.login-box button:disabled {
+.button:disabled {
   background-color: #cccccc;
   color: #666666;
   cursor: not-allowed;

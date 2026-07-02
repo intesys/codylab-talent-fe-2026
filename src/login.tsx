@@ -66,7 +66,7 @@ function Login({
   return (
     <div className={style["login-page"]}>
       <div className={style["login-box"]}>
-        <h2>Intesys Gestione Progetti</h2>
+        <h2 className={style["login-title"]}>Intesys Gestione Progetti</h2>
         <form onSubmit={formik.handleSubmit}>
           <div className={style["input-field"]}>
             <TextField
@@ -91,7 +91,11 @@ function Login({
           {serverSideError && (
             <div className={style["error"]}>{serverSideError}</div>
           )}
-          <Button type="submit">Login</Button>
+          <div className={style["button-container"]}>
+            <Button type="submit" className={style["button"]}>
+              Login
+            </Button>
+          </div>
         </form>
       </div>
     </div>
