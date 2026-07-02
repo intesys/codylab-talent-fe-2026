@@ -39,47 +39,6 @@
   font-weight: 600;
 }
 
-.input-field {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 20px;
-  font-family: "SF Pro", "Segoe UI";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 18px;
-}
-
-.input-field input {
-  color: var(--input-color-text-active, #000);
-  font-family: "SF Pro", "Segoe UI";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 18px;
-  padding: 8px 12px 8px 12px;
-  border-radius: var(--input-radius-base, 4px);
-  border: var(--input-stroke-weight, 1px) solid
-    var(--input-color-stroke-default, #ced4da);
-  background: var(--input-color-background-default, #fff);
-}
-
-.input-field input:focus {
-  border-color: #868e96;
-  background-color: #ffff;
-  outline: auto #868e96;
-}
-
-.input-field input::placeholder {
-  color: var(--input-color-text-active, #000);
-  font-family: "SF Pro", "Segoe UI";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 18px;
-}
-
 .button {
   width: 100%;
   padding: 8px 12px 8px 12px;
