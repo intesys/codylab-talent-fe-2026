@@ -1,4 +1,4 @@
-import "./TextField.css";
+import style from "./TextField.module.css";
 
 type TextFieldProps = {
   type?: string;
@@ -14,6 +14,7 @@ type TextFieldProps = {
   ore?: string;
   title?: string;
   percentage?: string;
+  label: string;
 };
 
 function TextField({
@@ -24,10 +25,13 @@ function TextField({
   onChange,
   onBlur,
   error,
+  label,
 }: TextFieldProps) {
   return (
-    <div className="text-field">
+    <div className={style.textField}>
+      <label className={style.textFieldLabel}>{label}</label>
       <input
+        className={style.textFieldInput}
         type={type}
         name={name}
         placeholder={placeholder}
@@ -35,7 +39,7 @@ function TextField({
         onChange={onChange}
         onBlur={onBlur}
       />
-      {error && <p className="text-field-error">{error}</p>}
+      {error && <p className={style.textFieldError}>{error}</p>}
     </div>
   );
 }

@@ -1,0 +1,31 @@
+.textField {
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.textFieldLabel {
+  display: flex;
+  justify-content: start;
+  color: #000;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 590;
+  line-height: 18px;
+}
+
+.textFieldError {
+  color: red;
+  font-size: 12px;
+  margin: 4px 0 0 0;
+  text-align: left;
+}
+
+.textFieldInput {
+  display: flex;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  padding: 8px 12px;
+}

@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import Button from "./components/Button";
-import TextField from "./components/TextField";
+import TextField from "./components/TextField/TextField";
 import style from "./login.module.css";
 import { useState } from "react";
 import { ACCESS_TOKEN_KEY } from "./consts";
@@ -68,20 +68,22 @@ function Login({
       <div className={style["login-box"]}>
         <h2 className={style["login-title"]}>Intesys Gestione Progetti</h2>
         <form onSubmit={formik.handleSubmit}>
-          <div className={style["input-field"]}>
+          <div className={style["input-container"]}>
             <TextField
+              label="Username"
               type="text"
               name="username"
-              placeholder="Username"
+              //placeholder="Username"
               value={formik.values.username}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.username && formik.errors.username}
             />
             <TextField
+              label="Password"
               type="password"
               name="password"
-              placeholder="Password"
+              // placeholder="Password"
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}

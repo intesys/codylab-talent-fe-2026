@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  height: 100dvh;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -28,9 +28,8 @@
     padding: 20px;
   }
 }
-
 .login-title {
-  font-family: "Work Sans", "Segoe UI";
+  font-family: "Work Sans";
   font-size: 18px;
   font-style: normal;
   color: #000;
@@ -38,7 +37,6 @@
   margin-bottom: 25px;
   font-weight: 600;
 }
-
 .button {
   width: 100%;
   padding: 8px 12px 8px 12px;
