@@ -1,0 +1,25 @@
+.containerProgetti{
+    display: flex;
+    padding: 24px;
+    margin:32px;
+    flex-direction:column;
+    align-items: flex-start;
+    gap: 24px;
+    align-self:stretch;
+}
+
+.projectSelect{
+    display: flex;
+    padding:16px 20px;
+    flex-direction:column;
+    justify-content:flex-end;
+    align-items: flex-start;
+    gap: 24px;
+    align-self:stretch;
+}
+
+.divider{
+    width: 100%;
+    height:1px;
+    background-color:#ced5f2;
+}

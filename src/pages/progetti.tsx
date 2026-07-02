@@ -1,6 +1,8 @@
 import type { Project } from "../App";
 import Header from "../components/header/Header";
 import ProjectList from "../components/projectList/ProjectList";
+import styles from "./progetti.module.css";
+
 
 function Progetti({
   projects,
@@ -15,11 +17,11 @@ function Progetti({
   return (
     <div>
       <Header />
-      <ProjectList
-        projects={projects}
-        update={update}
-        onDelete={deleteProject}
-      />
+            <div className={styles.containerProgetti}>
+                <div className={styles.projectSelect}>seleziona progetto</div>
+                <div className={styles.divider}></div>
+                <ProjectList  projects={projects}    update={update}     onDelete={deleteProject} />
+        </div>
     </div>
   );
 }
