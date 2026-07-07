@@ -1,11 +1,12 @@
 import { useFormik } from "formik";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
-import Button from "./components/Button";
+import { Button } from "./components/button/Button";
 import TextField from "./components/TextField";
 import style from "./login.module.css";
 import { useState } from "react";
 import { ACCESS_TOKEN_KEY } from "./consts";
+import { useNavigate } from "react-router";
 
 const loginSchema = z.object({
   username: z
@@ -29,6 +30,7 @@ function Login({
   setIsAuthenticated: (value: boolean) => void;
 }) {
   const [serverSideError, setServerSideError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -56,6 +58,7 @@ function Login({
         if (responseBody.accessToken) {
           localStorage.setItem(ACCESS_TOKEN_KEY, responseBody.accessToken);
           setIsAuthenticated(true);
+          navigate("/"); //manda alla rotta dei progetti dopo il login successfull
         }
       } catch (error) {
         console.error(error);

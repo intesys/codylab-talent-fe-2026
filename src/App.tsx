@@ -124,6 +124,7 @@ export default function App() {
           />
           <Route path="/profilo" element={<Profilo />} />
           <Route path="/logout" element={<Logout />} />
+
         </Route>
       </Routes>
     </BrowserRouter>
