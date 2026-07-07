@@ -1,56 +1,33 @@
-import { useState } from "react";
-import style from "./header.module.css";
 import { Link } from "react-router";
-import { ACCESS_TOKEN_KEY } from "../../consts";
+import { Typography } from "./typography/Typography";
+import style from "./header.module.css";
+
+import logoIntesys from "./assets/svgexport-1 1.svg";
+import gridIcon from "./assets/Union.svg";
+import avatar from "./assets/Ellipse 4.svg";
 
 function Header() {
-  const [menuAperto, setMenuAperto] = useState(false);
-
   return (
     <header className={style.header}>
-      <div className={style.logo}>
+      {/* SINISTRA: logo + sottotitolo */}
+      <div className={style.left}>
         <Link to="/">
-          <h1>Intesys Gestione Progetto</h1>
+          <img src={logoIntesys} alt="Intesys" width={114} height={30} />
         </Link>
+        <Typography variant="subtitle">Gestione Progetto</Typography>
       </div>
 
-      <button
-        className={style.bottoneMenu}
-        onClick={() => setMenuAperto(!menuAperto)}
-      >
-        {menuAperto ? "✕" : "☰"}{" "}
-      </button>
-
-      <nav className={`${style.nav} ${menuAperto ? style.aperto : ""}`}>
-        <ul className={style.menu}>
-          <li>
-            <Link to="/add-new-project" onClick={() => setMenuAperto(false)}>
-              Aggiungi Nuovo Progetto
-            </Link>
-          </li>
-          <li>
-            <Link to="/progetti" onClick={() => setMenuAperto(false)}>
-              Progetti
-            </Link>
-          </li>
-          <li>
-            <Link to="/profilo" onClick={() => setMenuAperto(false)}>
-              Profilo
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/"
-              onClick={() => {
-                localStorage.removeItem(ACCESS_TOKEN_KEY);
-                setMenuAperto(false);
-              }}
-            >
-              Logout
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      {/* DESTRA: icone */}
+      <div className={style.right}>
+        <img src={gridIcon} alt="Menu" width={24} height={24} />
+        <img
+          src={avatar}
+          alt="Profilo"
+          width={38}
+          height={38}
+          style={{ borderRadius: "50%", border: "2px solid #000000" }}
+        />
+      </div>
     </header>
   );
 }
