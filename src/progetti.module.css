@@ -1,0 +1,17 @@
+.dettaglioProgetti {
+  display: flex;
+  height: 84px;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+  justify-content: center;
+  text-align: start;
+
+  font-family: "Inter", sans-serif;
+  padding: 16px;
+  width: min(60%, 100%);
+  box-sizing: border-box;
+  margin: 0 auto;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+}

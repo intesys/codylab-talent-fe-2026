@@ -1,6 +1,8 @@
 import type { Project } from "../App";
 import Header from "../components/header/Header";
 import ProjectList from "../components/projectList/ProjectList";
+import ProjectDetailsCard from "../components/projectDetailsCard/ProjectDetailsCard";
+import styles from "../progetti.module.css";
 
 function Progetti({
   projects,
@@ -11,10 +13,16 @@ function Progetti({
   update: (id: number, fields: Partial<Project>) => void;
   deleteProject: (id: number) => void;
 }) {
-  //passi la lista aggiornata
   return (
     <div>
       <Header />
+      <div className={styles.dettaglioProgetti}>
+        <ProjectDetailsCard label="Giornate Lavorate" content="120" />
+        <ProjectDetailsCard label="Giornate vendute" content="360" />
+        <ProjectDetailsCard label="% consumate" content="33%" />
+        <ProjectDetailsCard label="Giornate residue" content="240" />
+      </div>
+
       <ProjectList
         projects={projects}
         update={update}

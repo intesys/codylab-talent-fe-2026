@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { z } from "zod";
-import TextField from "../components/TextField/TextField";
+import TextField from "../components/textField/TextField";
 import Button from "../components/Button";
 import "../addNewProject.moduel.css";
 import Header from "../components/header/Header";

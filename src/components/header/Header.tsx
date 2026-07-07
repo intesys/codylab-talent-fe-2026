@@ -29,7 +29,7 @@ function Header() {
             </Link>
           </li>
           <li>
-            <Link to="/progetti" onClick={() => setMenuAperto(false)}>
+            <Link to="/" onClick={() => setMenuAperto(false)}>
               Progetti
             </Link>
           </li>

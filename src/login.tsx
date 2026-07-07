@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import Button from "./components/Button";
-import TextField from "./components/TextField/TextField";
+import TextField from "./components/textField/TextField";
 import style from "./login.module.css";
 import { useState } from "react";
 import { ACCESS_TOKEN_KEY } from "./consts";
