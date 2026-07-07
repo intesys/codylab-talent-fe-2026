@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@formkit/zod": "^2.1.0",
     "@tanstack/react-router": "^1.170.8",
     "formik": "^2.4.9",
     "react": "^19.2.6",
