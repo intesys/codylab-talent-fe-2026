@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { z } from "zod";
 import TextField from "../components/TextField";
-import Button from "../components/Button";
+import {SingleButton} from "../components/Button";
 import "../addNewProject.moduel.css";
 import Header from "../components/header/Header";
 import { useNavigate } from "react-router";
@@ -136,7 +136,7 @@ function AddNewProject({ add }: { add: (project: Project) => void }) {
             onBlur={formik.handleBlur}
             error={formik.touched.percentage && formik.errors.percentage}
           />
-          <Button type="submit">Aggiungi</Button>
+          <SingleButton type="submit">Aggiungi</SingleButton>
         </form>
       </div>
     </div>
