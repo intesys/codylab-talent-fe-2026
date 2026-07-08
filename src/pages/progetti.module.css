@@ -16,4 +16,20 @@
   align-self: stretch;
 }
 
+.dettaglioProgetti{
+  display: flex;
+  height: 84px;
+  align-items: center;
+  gap: 16px;
+  align-self: stretch;
+  
+}
+.projectDetailsbox{
+  display: flex;
+padding: 24px 16px;
+flex-direction: column;
+align-items: flex-start;
+gap: 16px;
+align-self: stretch;
+}
 
