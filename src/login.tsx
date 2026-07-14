@@ -48,11 +48,10 @@ function Login({
       if (data.accessToken) {
         localStorage.setItem(ACCESS_TOKEN_KEY, data.accessToken);
         setIsAuthenticated(true);
-        navigate("/"); //manda alla rotta dei progetti dopo il login successfull
+        navigate("/");
       }
     },
     onError: (error) => {
-      // The error is already handled in the JSX, but you could add additional logging here if needed.
       console.error("Login mutation error:", error);
     },
   });
