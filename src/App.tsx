@@ -7,101 +7,39 @@ import Profilo from "./pages/profilo";
 import Progetti from "./pages/progetti";
 
 export type Project = {
-  date: string;
-  title: string;
-  ore: string;
-  percentage: string;
   id: number;
+  cliente: string;
+  progetto: string;
+  attivita: string;
+  periodo: string;
+  utente: string;
+  ggLavorate: string;
+  ggVendute: string;
 };
 
 export default function App() {
   const [projects, setProjects] = useState<Project[]>([
-    {
-      date: "2023-10-02",
-      title: "Progetto Talent",
-      ore: "50",
-      percentage: "50",
-      id: 2,
-    },
-    {
-      date: "2023-10-03",
-      title: "Controllo sicurezza",
-      ore: "8",
-      percentage: "80",
-      id: 3,
-    },
-    {
-      date: "2023-10-04",
-      title: "Configurazione Server",
-      ore: "12",
-      percentage: "100",
-      id: 4,
-    },
-    {
-      date: "2023-10-05",
-      title: "UI/UX Design App",
-      ore: "30",
-      percentage: "25",
-      id: 5,
-    },
-    {
-      date: "2023-10-06",
-      title: "Ottimizzazione SEO",
-      ore: "15",
-      percentage: "70",
-      id: 6,
-    },
-    {
-      date: "2023-10-07",
-      title: "Meeting Revisione",
-      ore: "2",
-      percentage: "100",
-      id: 7,
-    },
-    {
-      date: "2023-10-08",
-      title: "Bug Fixing API",
-      ore: "20",
-      percentage: "40",
-      id: 8,
-    },
-    {
-      date: "2023-10-09",
-      title: "Analisi Database",
-      ore: "18",
-      percentage: "90",
-      id: 9,
-    },
-    {
-      date: "2023-10-10",
-      title: "Deploy Produzione",
-      ore: "4",
-      percentage: "100",
-      id: 10,
-    },
+    { id: 1, cliente: "Acme Corp", progetto: "Alpha", attivita: "Design", periodo: "01/06-15/06/25", utente: "m.bianchi", ggLavorate: "5", ggVendute: "15" },
+    { id: 2, cliente: "Acme Corp", progetto: "Alpha", attivita: "Dev Backend", periodo: "01/06-30/06/25", utente: "l.rossi", ggLavorate: "12", ggVendute: "20" },
+    { id: 3, cliente: "Beta Srl", progetto: "Beta v2", attivita: "Testing", periodo: "10/06-20/06/25", utente: "a.verdi", ggLavorate: "8", ggVendute: "10" },
+    { id: 4, cliente: "Beta Srl", progetto: "Beta v2", attivita: "PM", periodo: "01/06-30/06/25", utente: "m.bianchi", ggLavorate: "3", ggVendute: "5" },
+    { id: 5, cliente: "Gamma SpA", progetto: "Gamma Web", attivita: "Dev Frontend", periodo: "15/06-30/06/25", utente: "l.rossi", ggLavorate: "10", ggVendute: "14" },
   ]);
 
   const addProject = (project: Project) => {
-    setProjects((prevState) => {
-      const newProjects = [...prevState, project];
-      return newProjects;
-    });
+    setProjects((prevState) => [...prevState, project]);
   };
 
   const updateProject = (id: number, fields: Partial<Project>) => {
-    setProjects((prevState) => {
-      const newProjects = prevState.map((project) =>
+    setProjects((prevState) =>
+      prevState.map((project) =>
         project.id === id ? { ...project, ...fields } : project,
-      );
-      return newProjects;
-    });
+      ),
+    );
   };
 
   const deleteProject = (id: number) => {
-    setProjects((prevState) => {
-      const newProjects = prevState.filter((project) => project.id !== id);
-      return newProjects;
-    });
+    setProjects((prevState) => prevState.filter((project) => project.id !== id));
   };
 
   return (

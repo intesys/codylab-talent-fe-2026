@@ -7,15 +7,13 @@
   background-color: #ffffff;
   flex-wrap: wrap;
   box-sizing: border-box;
-  border-bottom: 0.5px solid #F0F4F8;
-  border-radius: 0;
+  border-bottom: 0.5px solid #f0f4f8;
   align-items: center;
-  padding: 10px 14px; 
-  
+  padding: 10px 14px;
 }
 
 .listItem:hover {
-  background: #F7FAFC;
+  background: #f7fafc;
 }
 
 .info {
@@ -23,28 +21,12 @@
   flex: 1 1 100px;
   min-width: 0;
   font-size: 14px;
-  color: #2D3748;
-
-  
+  color: #2d3748;
 }
 
-.button {
-  
-
-  background: transparent;
-  border: 1px solid #E53E3E;
-  color: #E53E3E;
-  border-radius: 7px;
-  padding: 5px 14px;
-  font-size: 12px;
+.dotsIcon {
+  width: 20px;
+  height: 20px;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-  font-family: 'Inter', sans-serif;
-
-
-}
-
-.button:hover {
-  background: #E53E3E;
-  color: #ffffff;
+  display: block;
 }
