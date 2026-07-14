@@ -4,9 +4,9 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import { Button } from "./components/button/Button";
 import TextField from "./components/TextField";
 import style from "./login.module.css";
-import { useState } from "react";
 import { ACCESS_TOKEN_KEY } from "./consts";
 import { useNavigate } from "react-router";
+import { useMutation } from "@tanstack/react-query";
 
 const loginSchema = z.object({
   username: z
@@ -18,19 +18,36 @@ const loginSchema = z.object({
     .string()
     .min(8, "Password deve avere almeno 8 caratteri")
     .max(50, "Password troppo lunga"),
-  // .regex(/[A-Z]/, "Serve almeno una maiuscola")
-  // .regex(/[a-z]/, "Serve almeno una minuscola")
-  // .regex(/[0-9]/, "Serve almeno un numero")
-  // .regex(/[!@#$%^&*]/, "Serve almeno un carattere speciale"),
 });
+
+type LoginFormValues = z.infer<typeof loginSchema>;
 
 function Login({
   setIsAuthenticated,
 }: {
   setIsAuthenticated: (value: boolean) => void;
 }) {
-  const [serverSideError, setServerSideError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  const loginMutation = useMutation({
+    mutationFn: async (values: LoginFormValues) =>
+      fetch("https://dummyjson.com/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      }),
+    onSuccess: async (data) => {
+      const responseData = await data.json();
+      if (responseData.accessToken) {
+        localStorage.setItem(ACCESS_TOKEN_KEY, responseData.accessToken);
+        setIsAuthenticated(true);
+        navigate("/");
+      }
+    },
+    onError: (error) => {
+      console.error("Login mutation error:", error);
+    },
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -38,31 +55,8 @@ function Login({
       password: "",
     },
     validationSchema: toFormikValidationSchema(loginSchema),
-    onSubmit: async (values) => {
-      try {
-        const result = await fetch("https://dummyjson.com/auth/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(values),
-        });
-
-        const responseBody = await result.json();
-
-        if (!result.ok) {
-          const errorMessage =
-            responseBody.message || "Qualcosa è andato storto durante il login";
-          setServerSideError(errorMessage);
-          throw new Error(errorMessage);
-        }
-
-        if (responseBody.accessToken) {
-          localStorage.setItem(ACCESS_TOKEN_KEY, responseBody.accessToken);
-          setIsAuthenticated(true);
-          navigate("/"); //manda alla rotta dei progetti dopo il login successfull
-        }
-      } catch (error) {
-        console.error(error);
-      }
+    onSubmit: (values) => {
+      loginMutation.mutate(values);
     },
   });
 
@@ -91,12 +85,22 @@ function Login({
               error={formik.touched.password && formik.errors.password}
             />
           </div>
-          {serverSideError && (
-            <div className={style["error"]}>{serverSideError}</div>
+
+          {loginMutation.isError && (
+            <div className={style["error"]}>
+              {loginMutation.error instanceof Error
+                ? loginMutation.error.message
+                : "Errore durante il login"}
+            </div>
           )}
+
           <div className={style["button-container"]}>
-            <Button type="submit" className={style["button"]}>
-              Login
+            <Button
+              type="submit"
+              className={style["button"]}
+              disabled={loginMutation.isPending}
+            >
+              {loginMutation.isPending ? "Caricamento..." : "Login"}
             </Button>
           </div>
         </form>
