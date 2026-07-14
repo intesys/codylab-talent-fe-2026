@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router";
 import { Auth } from "./components/auth/Auth";
 import AddNewProject from "./pages/AddNewProject";
@@ -18,29 +18,53 @@ export type Project = {
 };
 
 export default function App() {
-  const [projects, setProjects] = useState<Project[]>([
-    { id: 1, cliente: "Acme Corp", progetto: "Alpha", attivita: "Design", periodo: "01/06-15/06/25", utente: "m.bianchi", ggLavorate: "5", ggVendute: "15" },
-    { id: 2, cliente: "Acme Corp", progetto: "Alpha", attivita: "Dev Backend", periodo: "01/06-30/06/25", utente: "l.rossi", ggLavorate: "12", ggVendute: "20" },
-    { id: 3, cliente: "Beta Srl", progetto: "Beta v2", attivita: "Testing", periodo: "10/06-20/06/25", utente: "a.verdi", ggLavorate: "8", ggVendute: "10" },
-    { id: 4, cliente: "Beta Srl", progetto: "Beta v2", attivita: "PM", periodo: "01/06-30/06/25", utente: "m.bianchi", ggLavorate: "3", ggVendute: "5" },
-    { id: 5, cliente: "Gamma SpA", progetto: "Gamma Web", attivita: "Dev Frontend", periodo: "15/06-30/06/25", utente: "l.rossi", ggLavorate: "10", ggVendute: "14" },
-  ]);
+  // Il client della cache di React Query (lo stesso creato in main.tsx).
+  // Serve per aggiornare i dati della query "progetti" dopo ogni mutation.
+  const queryClient = useQueryClient();
 
-  const addProject = (project: Project) => {
-    setProjects((prevState) => [...prevState, project]);
-  };
+  // --- CREA (ex addProject) ---
+  const addMutation = useMutation({
+    mutationFn: async (project: Project): Promise<Project> => {
+      // TEMPORANEO: nessun server reale, simula la creazione.
+      await new Promise((r) => setTimeout(r, 300));
+      return project;
+    },
+    onSuccess: (nuovoProgetto) => {
+      // Aggiunge il nuovo progetto alla lista in cache
+      queryClient.setQueryData<Project[]>(["progetti"], (old = []) => [
+        ...old,
+        nuovoProgetto,
+      ]);
+    },
+  });
 
-  const updateProject = (id: number, fields: Partial<Project>) => {
-    setProjects((prevState) =>
-      prevState.map((project) =>
-        project.id === id ? { ...project, ...fields } : project,
-      ),
-    );
-  };
+  // --- MODIFICA (ex updateProject) ---
+  const updateMutation = useMutation({
+    mutationFn: async (vars: { id: number; fields: Partial<Project> }) => {
+      await new Promise((r) => setTimeout(r, 300));
+      return vars;
+    },
+    onSuccess: ({ id, fields }) => {
+      queryClient.setQueryData<Project[]>(["progetti"], (old = []) =>
+        old.map((project) =>
+          project.id === id ? { ...project, ...fields } : project,
+        ),
+      );
+    },
+  });
 
-  const deleteProject = (id: number) => {
-    setProjects((prevState) => prevState.filter((project) => project.id !== id));
-  };
+  // --- ELIMINA (ex deleteProject) ---
+  const deleteMutation = useMutation({
+    mutationFn: async (id: number) => {
+      await new Promise((r) => setTimeout(r, 300));
+      return id;
+    },
+    onSuccess: (id) => {
+      queryClient.setQueryData<Project[]>(["progetti"], (old = []) =>
+        old.filter((project) => project.id !== id),
+      );
+    },
+  });
 
   return (
     <BrowserRouter>
@@ -48,21 +72,22 @@ export default function App() {
         <Route path="/" element={<Auth />}>
           <Route
             path="/add-new-project"
-            element={<AddNewProject add={addProject} />}
+            // .mutate accetta un solo argomento: qui è il Project da creare
+            element={<AddNewProject add={addMutation.mutate} />}
           />
           <Route
             index
             element={
               <Progetti
-                
-                update={updateProject}
-                deleteProject={deleteProject}
+                // update riceve (id, fields): li impacchetto in un oggetto
+                // perché .mutate accetta un solo argomento
+                update={(id, fields) => updateMutation.mutate({ id, fields })}
+                deleteProject={deleteMutation.mutate}
               />
             }
           />
           <Route path="/profilo" element={<Profilo />} />
           <Route path="/logout" element={<Logout />} />
-
         </Route>
       </Routes>
     </BrowserRouter>

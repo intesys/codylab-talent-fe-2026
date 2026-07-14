@@ -22,6 +22,7 @@ function Progetti({
 }) {
   const progetti = useQuery({
     queryKey: ["progetti"],
+    staleTime: Infinity, // con i dati finti evita refetch che azzererebbero le mutation
     queryFn: async (): Promise<Project[]> => {
       await new Promise((r) => setTimeout(r, 500));
       return MOCK_PROJECTS;
