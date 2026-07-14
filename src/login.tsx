@@ -53,6 +53,9 @@ function Login({
         navigate("/");
       }
     },
+    onError: (error: any) => {
+      console.error("Errore durante il login:", error);
+    },
   });
   const formik = useFormik({
     initialValues: {
