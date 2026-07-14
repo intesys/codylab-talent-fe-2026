@@ -5,6 +5,9 @@ import AddNewProject from "./pages/AddNewProject";
 import Logout from "./pages/logout";
 import Profilo from "./pages/profilo";
 import Progetti from "./pages/progetti";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 export type Project = {
   date: string;
@@ -105,28 +108,29 @@ export default function App() {
   };
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Auth />}>
-          <Route
-            path="/add-new-project"
-            element={<AddNewProject add={addProject} />}
-          />
-          <Route
-            index
-            element={
-              <Progetti
-                projects={projects}
-                update={updateProject}
-                deleteProject={deleteProject}
-              />
-            }
-          />
-          <Route path="/profilo" element={<Profilo />} />
-          <Route path="/logout" element={<Logout />} />
-
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Auth />}>
+            <Route
+              path="/add-new-project"
+              element={<AddNewProject add={addProject} />}
+            />
+            <Route
+              index
+              element={
+                <Progetti
+                  projects={projects}
+                  update={updateProject}
+                  deleteProject={deleteProject}
+                />
+              }
+            />
+            <Route path="/profilo" element={<Profilo />} />
+            <Route path="/logout" element={<Logout />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
