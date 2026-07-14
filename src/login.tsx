@@ -30,23 +30,16 @@ function Login({
   const navigate = useNavigate();
 
   const loginMutation = useMutation({
-    mutationFn: async (values: LoginFormValues) => {
-      const result = await fetch("https://dummyjson.com/auth/login", {
+    mutationFn: async (values: LoginFormValues) =>
+      fetch("https://dummyjson.com/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
-      });
-      const responseBody = await result.json();
-      if (!result.ok) {
-        const errorMessage =
-          responseBody.message || "Qualcosa è andato storto durante il login";
-        throw new Error(errorMessage);
-      }
-      return responseBody;
-    },
-    onSuccess: (data) => {
-      if (data.accessToken) {
-        localStorage.setItem(ACCESS_TOKEN_KEY, data.accessToken);
+      }),
+    onSuccess: async (data) => {
+      const responseData = await data.json();
+      if (responseData.accessToken) {
+        localStorage.setItem(ACCESS_TOKEN_KEY, responseData.accessToken);
         setIsAuthenticated(true);
         navigate("/");
       }
