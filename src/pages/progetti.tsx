@@ -1,4 +1,3 @@
-import React from "react";
 import type { Project } from "../App";
 import Header from "../components/header/Header";
 import ProjectDetailsCard from "../components/ProjectDetailsCard/ProjectDetailsCard";
