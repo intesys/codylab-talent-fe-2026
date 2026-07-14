@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { z } from "zod";
 import TextField from "../components/TextField";
-import Button from "../components/Button";
+import { Button } from "../components/button/Button";
 import "../addNewProject.moduel.css";
 import Header from "../components/header/Header";
 import { useNavigate } from "react-router";

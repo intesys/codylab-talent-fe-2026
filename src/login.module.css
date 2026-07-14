@@ -8,15 +8,17 @@
 }
 
 .login-box {
-  border: 1px solid black;
   padding: 30px;
   width: 100%;
   max-width: 350px;
   text-align: center;
   box-sizing: border-box;
+  border-radius: 4px;
+  background: rgba(231, 234, 247, 0.5);
 }
 
 .error {
+  font-family: "SF Pro", "Segoe UI";
   color: red;
   margin-top: 10px;
 }
@@ -25,4 +27,50 @@
   .login-box {
     padding: 20px;
   }
+}
+
+.login-title {
+  font-family: "Work Sans", "Segoe UI";
+  font-size: 18px;
+  font-style: normal;
+  color: #000;
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.button {
+  width: 100%;
+  padding: 8px 12px 8px 12px;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.15);
+  border-radius: var(--button-radius-base, 4px);
+  background: var(--button-color-filled-primary-background-default, #0f33ce);
+  color: var(--button-color-filled-primary-text-default, #fff);
+  font-family: "SF Pro", "Segoe UI";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 590;
+  line-height: 18px;
+  text-transform: capitalize;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.button:active {
+  border-radius: var(--button-radius-base, 4px);
+  background: var(--button-color-filled-primary-background-default, #0f33ce);
+}
+
+.button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
 }
