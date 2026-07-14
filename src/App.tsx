@@ -54,7 +54,7 @@ export default function App() {
             index
             element={
               <Progetti
-                projects={projects}
+                
                 update={updateProject}
                 deleteProject={deleteProject}
               />
