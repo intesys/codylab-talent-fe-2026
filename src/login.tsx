@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { useFormik } from "formik";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
@@ -6,8 +7,8 @@ import TextField from "./components/TextField";
 import style from "./login.module.css";
 import { ACCESS_TOKEN_KEY } from "./consts";
 import { useNavigate } from "react-router";
-
 import { useMutation } from "@tanstack/react-query";
+import { ApiContext } from "./contexts/apiContext";
 
 const loginSchema = z.object({
   username: z
@@ -33,27 +34,20 @@ function Login({
   setIsAuthenticated: (value: boolean) => void;
 }) {
   const navigate = useNavigate();
+
+  const { authApi } = useContext(ApiContext);
+
   const loginMutation = useMutation({
-    mutationFn: async (values: LoginValues) => {
-      const result = await fetch("https://dummyjson.com/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      const responseBody = await result.json();
-      if (!result.ok) {
-        throw new Error(responseBody.message || "Qualcosa è andato storto");
-      }
-      return responseBody;
-    },
-    onSuccess: (data) => {
-      if (data.accessToken) {
-        localStorage.setItem(ACCESS_TOKEN_KEY, data.accessToken);
+    mutationFn: (values: LoginValues) =>
+      authApi.loginUser({ loginRequest: values }),
+    onSuccess: (user) => {
+      if (user.accessToken) {
+        localStorage.setItem(ACCESS_TOKEN_KEY, user.accessToken);
         setIsAuthenticated(true);
         navigate("/");
       }
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       console.error("Errore durante il login:", error);
     },
   });
