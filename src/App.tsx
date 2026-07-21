@@ -7,7 +7,8 @@ import Profilo from "./pages/profilo";
 import Progetti from "./pages/progetti";
 import Login from "./login";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ApiContext, authApi, customerApi } from "./contexts/apiContext";
+import { ApiProvider } from "./contexts/ApiProvider";
+
 
 const queryClient = new QueryClient();
 
@@ -113,7 +114,7 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ApiContext.Provider value={{ authApi, customerApi }}>
+      <ApiProvider>
         <BrowserRouter>
           <Routes>
             <Route
@@ -147,7 +148,7 @@ export default function App() {
             </Route>
           </Routes>
         </BrowserRouter>
-      </ApiContext.Provider>
+      </ApiProvider>
     </QueryClientProvider>
   );
 }

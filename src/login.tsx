@@ -1,4 +1,4 @@
-import { useContext } from "react";
+
 import { useFormik } from "formik";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
@@ -8,7 +8,8 @@ import style from "./login.module.css";
 import { ACCESS_TOKEN_KEY } from "./consts";
 import { useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
-import { ApiContext } from "./contexts/apiContext";
+import { useApi } from "./contexts/useApi";
+
 
 const loginSchema = z.object({
   username: z
@@ -35,7 +36,7 @@ function Login({
 }) {
   const navigate = useNavigate();
 
-  const { authApi } = useContext(ApiContext);
+  const { authApi } = useApi();
 
   const loginMutation = useMutation({
     mutationFn: (values: LoginValues) =>
