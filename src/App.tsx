@@ -1,10 +1,16 @@
 import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router";
 import { Auth } from "./components/auth/Auth";
 import AddNewProject from "./pages/AddNewProject";
 import Logout from "./pages/logout";
 import Profilo from "./pages/profilo";
 import Progetti from "./pages/progetti";
+import Login from "./login";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ApiProvider } from "./contexts/ApiProvider";
+
+
+const queryClient = new QueryClient();
 
 export type Project = {
   date: string;
@@ -15,6 +21,8 @@ export type Project = {
 };
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
   const [projects, setProjects] = useState<Project[]>([
     {
       date: "2023-10-02",
@@ -105,28 +113,42 @@ export default function App() {
   };
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Auth />}>
-          <Route
-            path="/add-new-project"
-            element={<AddNewProject add={addProject} />}
-          />
-          <Route
-            index
-            element={
-              <Progetti
-                projects={projects}
-                update={updateProject}
-                deleteProject={deleteProject}
-              />
-            }
-          />
-          <Route path="/profilo" element={<Profilo />} />
-          <Route path="/logout" element={<Logout />} />
+    <QueryClientProvider client={queryClient}>
+      <ApiProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/login"
+              element={<Login setIsAuthenticated={setIsAuthenticated} />}
+            />
+            <Route
+              path="/"
+              element={
+                isAuthenticated ? <Auth /> : <Navigate to="/login" replace />
+              }
+            />
 
-        </Route>
-      </Routes>
-    </BrowserRouter>
+            <Route path="/" element={<Auth />}>
+              <Route
+                path="/add-new-project"
+                element={<AddNewProject add={addProject} />}
+              />
+              <Route
+                index
+                element={
+                  <Progetti
+                    projects={projects}
+                    update={updateProject}
+                    deleteProject={deleteProject}
+                  />
+                }
+              />
+              <Route path="/profilo" element={<Profilo />} />
+              <Route path="/logout" element={<Logout />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </ApiProvider>
+    </QueryClientProvider>
   );
 }
