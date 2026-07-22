@@ -5,9 +5,10 @@ import { Button } from "../components/button/Button";
 import "../addNewProject.moduel.css";
 import Header from "../components/header/Header";
 import { useNavigate } from "react-router";
-import type { Project } from "../App";
+import { useMutation } from "@tanstack/react-query";
+import { useApi } from "../contexts/useApi";
+import { ProjectStatusEnum } from "../api";
 
-//validazione dei campi
 const add_new_project_schema = z.object({
   date: z
     .string()
@@ -32,8 +33,33 @@ const add_new_project_schema = z.object({
     .max(100, "Completamento non può superare 100%"),
 });
 
-function AddNewProject({ add }: { add: (project: Project) => void }) {
+type AddProjectValues = z.infer<typeof add_new_project_schema>;
+
+function AddNewProject() {
   const navigate = useNavigate();
+  const { projectApi } = useApi();
+
+  const createMutation = useMutation({
+    mutationFn: (values: AddProjectValues) =>
+      projectApi.createProject({
+        project: {
+          // ⚠️ MAPPATURA DA CONFERMARE COL TEAM (form -> backend)
+          title: values.title,
+          estimatedHours: Number(values.ore),
+          startDate: new Date(values.date),
+          endDate: new Date(values.date),
+          status: ProjectStatusEnum.Created,
+          // 'percentage' del form non esiste lato backend: scartato
+        },
+      }),
+    onSuccess: () => {
+      navigate("/");
+    },
+    onError: (error: Error) => {
+      console.error("Errore creazione progetto:", error);
+    },
+  });
+
   const formik = useFormik({
     initialValues: {
       date: "",
@@ -44,7 +70,6 @@ function AddNewProject({ add }: { add: (project: Project) => void }) {
     validate: (values) => {
       const result = add_new_project_schema.safeParse(values);
       if (result.success) return {};
-
       const errors: Record<string, string> = {};
       result.error.issues.forEach((issue) => {
         const path = issue.path[0] as string;
@@ -54,19 +79,8 @@ function AddNewProject({ add }: { add: (project: Project) => void }) {
       });
       return errors;
     },
-    //funzione del submit
     onSubmit: (values) => {
-      const nuovoProgetto = {
-        date: values.date,
-        title: values.title,
-        ore: values.ore.toString(),
-        percentage: values.percentage.toString(),
-        id: Date.now(),
-      };
-      add(nuovoProgetto);
-
-      alert("Progetto aggiunto con successo!");
-      navigate("/");
+      createMutation.mutate(values);
     },
   });
 
@@ -76,7 +90,6 @@ function AddNewProject({ add }: { add: (project: Project) => void }) {
       <div className="add-new-project-container">
         <h2>Aggiungi Nuovo Progetto</h2>
         <form onSubmit={formik.handleSubmit}>
-          {/* data */}
           <TextField
             type="date"
             name="date"
@@ -86,7 +99,6 @@ function AddNewProject({ add }: { add: (project: Project) => void }) {
             onBlur={formik.handleBlur}
             error={formik.touched.date && formik.errors.date}
           />
-          {/* titolo */}
           <TextField
             type="text"
             name="title"
@@ -96,7 +108,6 @@ function AddNewProject({ add }: { add: (project: Project) => void }) {
             onBlur={formik.handleBlur}
             error={formik.touched.title && formik.errors.title}
           />
-          {/* ore totali */}
           <TextField
             type="text"
             name="ore"
@@ -116,7 +127,6 @@ function AddNewProject({ add }: { add: (project: Project) => void }) {
             onBlur={formik.handleBlur}
             error={formik.touched.ore && formik.errors.ore}
           />
-          {/* completamento */}
           <TextField
             type="text"
             name="percentage"
@@ -136,7 +146,9 @@ function AddNewProject({ add }: { add: (project: Project) => void }) {
             onBlur={formik.handleBlur}
             error={formik.touched.percentage && formik.errors.percentage}
           />
-          <Button type="submit">Aggiungi</Button>
+          <Button type="submit" disabled={createMutation.isPending}>
+            {createMutation.isPending ? "Salvataggio..." : "Aggiungi"}
+          </Button>
         </form>
       </div>
     </div>
