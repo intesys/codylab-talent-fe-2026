@@ -1,35 +1,58 @@
-openapi: 3.1.0
+openapi: 3.0.3
 info:
   title: CodyLab OpenAPI definition
   version: v0
-servers:
-  - description: default server
-    url: ""
-    variables:
-      prefix:
-        default: api
+security:
+  - bearerAuth: []
 paths:
-  /auth/login:
+  /auth/register:
     post:
       tags:
         - auth-controller
-      summary: User login
-      operationId: loginUser
+      summary: Register a new user
+      operationId: registerUser
+      security: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LoginRequest'
+              $ref: '#/components/schemas/RegisterRequest'
       responses:
-        '200':
-          description: Successful login
+        '201':
+          description: User registered successfully
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-        '401':
-          description: Invalid credentials
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /auth/login:
+   post:
+    tags:
+      - auth-controller
+    summary: User login
+    operationId: loginUser
+    security: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LoginRequest'
+    responses:
+      '200':
+        description: Successful login
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      '401':
+        description: Invalid credentials
   /projects:
     get:
       tags:
@@ -139,22 +162,239 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
+  /activities:
+    get:
+      tags:
+        - activity-controller
+      summary: Get all activities
+      operationId: getAllActivities
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Activity'
+    post:
+      tags:
+        - activity-controller
+      summary: Create a new activity
+      operationId: createActivity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Activity'
+      responses:
+        '201':
+          description: Activity created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activity'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /activities/{activityId}:
+    parameters:
+      - name: activityId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+    get:
+      tags:
+        - activity-controller
+      summary: Get an activity by ID
+      operationId: getActivityById
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activity'
+        '404':
+          description: Activity not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    put:
+      tags:
+        - activity-controller
+      summary: Update an existing activity
+      operationId: updateActivity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Activity'
+      responses:
+        '200':
+          description: Activity updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activity'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Activity not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    delete:
+      tags:
+        - activity-controller
+      summary: Delete an activity
+      operationId: deleteActivity
+      responses:
+        '204':
+          description: Activity deleted successfully
+        '404':
+          description: Activity not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /trackings:
+    get:
+      tags:
+        - tracking-controller
+      summary: Get all trackings
+      operationId: getAllTrackings
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tracking'
+    post:
+      tags:
+        - tracking-controller
+      summary: Create a new tracking
+      operationId: createTracking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tracking'
+      responses:
+        '201':
+          description: Tracking created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tracking'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /trackings/{trackingId}:
+    parameters:
+      - name: trackingId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+    get:
+      tags:
+        - tracking-controller
+      summary: Get a tracking by ID
+      operationId: getTrackingById
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tracking'
+        '404':
+          description: Tracking not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    put:
+      tags:
+        - tracking-controller
+      summary: Update an existing tracking
+      operationId: updateTracking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tracking'
+      responses:
+        '200':
+          description: Tracking updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tracking'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Tracking not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    delete:
+      tags:
+        - tracking-controller
+      summary: Delete a tracking
+      operationId: deleteTracking
+      responses:
+        '204':
+          description: Tracking deleted successfully
+        '404':
+          description: Tracking not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
   /customers:
     get:
       tags:
         - customer-controller
-      summary: Restituisce la lista di tutti i clienti
+      summary: Get all customers
       operationId: getAllCustomers
       responses:
         '200':
-          description: Lista di clienti recuperata con successo
+          description: Successful response
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Customer'
-
     post:
       tags:
         - customer-controller
@@ -179,10 +419,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-
-  /customers/{id}:
+  /customers/{customerId}:
     parameters:
-      - name: id
+      - name: customerId
         in: path
         required: true
         schema:
@@ -191,22 +430,21 @@ paths:
     get:
       tags:
         - customer-controller
-      summary: Restituisce un cliente specifico tramite ID
+      summary: Get a customer by ID
       operationId: getCustomerById
       responses:
         '200':
-          description: Cliente trovato
+          description: Successful response
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Customer'
         '404':
-          description: Cliente non trovato
+          description: Customer not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-
     put:
       tags:
         - customer-controller
@@ -251,9 +489,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-
 components:
   schemas:
+    RegisterRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        surname:
+          type: string
+          maxLength: 255
+        username:
+          type: string
+          minLength: 4
+          maxLength: 50
+        password:
+          type: string
+          minLength: 8
+          maxLength: 100
+          description: Must contain uppercase, lowercase, digit, and special character
+          example: "Password1!"
+        confirmPassword:
+          type: string
+      required:
+        - username
+        - password
+        - confirmPassword
     LoginRequest:
       type: object
       properties:
@@ -272,9 +534,6 @@ components:
           format: int64
         username:
           type: string
-        email:
-          type: string
-          format: email
         firstName:
           type: string
         lastName:
@@ -298,7 +557,7 @@ components:
           type: integer
           format: int32
           description: Estimated minutes for the project
-          examples: [120]
+          example: 120
         status:
           type: string
           enum:
@@ -326,17 +585,17 @@ components:
           type: string
           format: uri
           description: |
-            An absolute URI that identifies the problem type. When dereferenced,
+            An absolute URI that identifies the problem type.  When dereferenced,
             it SHOULD provide human-readable documentation for the problem type
             (e.g., using HTML).
           default: 'about:blank'
-          examples: ['https://zalando.github.io/problem/constraint-violation']
+          example: 'https://zalando.github.io/problem/constraint-violation'
         title:
           type: string
           description: |
             A short, summary of the problem type. Written in english and readable
             for engineers (usually not suited for non technical stakeholders and
-            not localized); examples: Service Unavailable
+            not localized); example: Service Unavailable
         status:
           type: integer
           format: int32
@@ -345,48 +604,86 @@ components:
             of the problem.
           minimum: 100
           maximum: 600
-          examples: [503]
+          example: 503
         detail:
           type: string
           description: |
             A human readable explanation specific to this occurrence of the
             problem.
-          examples: [Connection to database timed out]
+          example: Connection to database timed out
         instance:
           type: string
           format: uri
           description: |
             An absolute URI that identifies the specific occurrence of the problem.
             It may or may not yield further information if dereferenced.
-          examples: ['https://example.com/problem/12345']
+          example: 'https://example.com/problem/12345'
+    Activity:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        estimatedHours:
+          type: integer
+          format: int32
+          description: Estimated hours for the activity
+          example: 8
+        projectId:
+          type: integer
+          format: int64
+          description: ID of the associated project
+        createDate:
+          type: string
+          format: date
+        updateDate:
+          type: string
+          format: date
+    Tracking:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        description:
+          type: string
+        durationMinutes:
+          type: integer
+          format: int32
+          description: Duration in minutes
+          example: 60
+        activityId:
+          type: integer
+          format: int64
+          description: ID of the associated activity
+        userId:
+          type: integer
+          format: int64
+          description: ID of the associated user
+        createDate:
+          type: string
+          format: date
+        updateDate:
+          type: string
+          format: date
     Customer:
       type: object
       properties:
         id:
           type: integer
           format: int64
-          description: Identificativo unico del cliente
-          examples: [1]
         name:
           type: string
-          description: Nome del cliente
-          examples: ["Acme Corp"]
         createDate:
           type: string
           format: date
-          description: Data di creazione
         updateDate:
           type: string
           format: date
-          description: Data di ultimo aggiornamento
-      required:
-        - name
-    CustomerRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Nome del cliente
-          examples: ["Acme Corp"]
-      required:
-        - name
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

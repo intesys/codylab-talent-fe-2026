@@ -1,20 +1,19 @@
-import type { Project } from "../App";
 import Header from "../components/header/Header";
 import ProjectDetailsCard from "../components/ProjectDetailsCard/ProjectDetailsCard";
 import ProjectList from "../components/projectList/ProjectList";
 import { Divider } from "../components/ui/Divider";
 import { Section } from "../components/ui/Section";
 import styles from "./progetti.module.css";
+import { useQuery } from "@tanstack/react-query";
+import { useApi } from "../contexts/useApi";
 
-function Progetti({
-  projects,
-  update,
-  deleteProject,
-}: {
-  projects: Project[];
-  update: (id: number, fields: Partial<Project>) => void;
-  deleteProject: (id: number) => void;
-}) {
+function Progetti() {
+  const { projectApi } = useApi();
+  const { data: projects } = useQuery({
+    queryKey: ["projects"],
+    queryFn: () => projectApi.getAllProjects(),
+  });
+
   //passi la lista aggiornata
   return (
     <div>
@@ -34,9 +33,9 @@ function Progetti({
             </div>
           </div>
           <ProjectList
-            projects={projects}
-            update={update}
-            onDelete={deleteProject}
+            projects={(projects as any) || []}
+            update={handleUpdate}
+            onDelete={handleDelete}
           />
         </Section>
       </div>
