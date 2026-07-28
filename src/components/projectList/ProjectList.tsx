@@ -30,14 +30,21 @@ export default function ProjectList({
             <ProjectListItem
               key={projectId}
               id={projectId}
-              title={project.title}
-              estimatedHours={project.estimatedHours}
-              status={project.status}
-              startDate={
+              date={
                 project.startDate
                   ? new Date(project.startDate).toLocaleDateString("it-IT")
                   : "-"
               }
+              title={project.title ?? ""}
+              ore={project.estimatedHours?.toString() ?? "0"}
+              percentage={project.status ?? "-"}
+              //estimatedHours={0}
+              //status={project.status}
+              /*startDate={
+                project.startDate
+                  ? new Date(project.startDate).toLocaleDateString("it-IT")
+                  : "-"
+              }*/
               update={update}
               onDelete={onDelete}
             />

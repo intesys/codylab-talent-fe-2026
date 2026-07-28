@@ -8,6 +8,19 @@ import {
 
 const apiConfig = new Configuration({
   basePath: "http://localhost:8088/api/v1",
+  middleware: [
+    {
+      pre: async (context) => {
+        const accessToken = localStorage.getItem("accessToken");
+        if (accessToken) {
+          context.init.headers = {
+            ...context.init.headers,
+            Authorization: `Bearer ${accessToken}`,
+          };
+        }
+      },
+    },
+  ],
 });
 
 export const authApi = new AuthControllerApi(apiConfig);

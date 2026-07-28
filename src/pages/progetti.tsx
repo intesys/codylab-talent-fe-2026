@@ -9,10 +9,11 @@ import { useApi } from "../contexts/useApi";
 
 function Progetti() {
   const { projectApi } = useApi();
-  const { data: projects } = useQuery({
+  const { data: projects, isFetching: isFetchingProjects } = useQuery({
     queryKey: ["progetti"],
     queryFn: () => projectApi.getAllProjects(),
   });
+
   //passi la lista aggiornata
   return (
     <div>
@@ -31,11 +32,13 @@ function Progetti() {
               <ProjectDetailsCard label="Giornate residue" content="240" />
             </div>
           </div>
-          <ProjectList
-            projects={projects}
-            update={update}
-            onDelete={deleteProject}
-          />
+          {!isFetchingProjects && projects && (
+            <ProjectList
+              projects={projects}
+              update={(update) => {}}
+              onDelete={(deleteProject) => {}}
+            />
+          )}
         </Section>
       </div>
     </div>
