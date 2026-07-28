@@ -1,7 +1,7 @@
 import styles from "./ProjectList.module.css";
 
 import ProjectListItem from "../projectListItem/ProjectListItem";
-import type { Project } from "../../App";
+import type { Project } from "../../api";
 
 type ProjectListProps = {
   projects: Project[];
@@ -15,29 +15,35 @@ export default function ProjectList({
   onDelete,
 }: ProjectListProps) {
   return (
-    <ul className={styles.container}>
-      <h1 className={styles.h1}>Lista progetti</h1>
-      <li className={styles.listItem}>
-        <div className={styles.info}>DATA</div>
+    <div className={styles.container}>
+      <div className={styles.listItemHeader}>
         <div className={styles.info}>TITOLO</div>
-        <div className={styles.info}>ORE TOTALI</div>
-        <div className={styles.info}>PERCENTUALE DI COMPLETAMENTO</div>
-        <div className={styles.info}>AZIONI</div>{" "}
-        {/* Aggiunta colonna per le azioni */}
-      </li>
-
-      {projects.map((project) => (
-        <ProjectListItem
-          key={project.id}
-          id={project.id} // modificato il passaggio dell'ID
-          date={project.date}
-          title={project.title}
-          ore={project.ore}
-          percentage={project.percentage}
-          update={update} // Aggiunto il passaggio della funzione di modifica
-          onDelete={onDelete} // Aggiunto il passaggio della funzione
-        />
-      ))}
-    </ul>
+        <div className={styles.info}>ORE STIMATE</div>
+        <div className={styles.info}>STATO</div>
+        <div className={styles.info}>DATA INIZIO</div>
+        <div className={styles.info}>AZIONI</div>
+      </div>
+      <ul className={styles.list}>
+        {projects.map((project, index) => {
+          const projectId = project.id ?? index;
+          return (
+            <ProjectListItem
+              key={projectId}
+              id={projectId}
+              title={project.title}
+              estimatedHours={project.estimatedHours}
+              status={project.status}
+              startDate={
+                project.startDate
+                  ? new Date(project.startDate).toLocaleDateString("it-IT")
+                  : "-"
+              }
+              update={update}
+              onDelete={onDelete}
+            />
+          );
+        })}
+      </ul>
+    </div>
   );
 }

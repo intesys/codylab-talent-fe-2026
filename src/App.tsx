@@ -9,16 +9,8 @@ import Login from "./login";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ApiProvider } from "./contexts/ApiProvider";
 
-
 const queryClient = new QueryClient();
-
-export type Project = {
-  date: string;
-  title: string;
-  ore: string;
-  percentage: string;
-  id: number;
-};
+//const queryprogetti = new QueryProgetti();
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
