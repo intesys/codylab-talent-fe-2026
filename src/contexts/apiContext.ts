@@ -7,7 +7,7 @@ import {
 } from "../api";
 
 const apiConfig = new Configuration({
-  basePath: "http://localhost:8088",
+  basePath: "http://localhost:8088/api/v1",
 });
 
 export const authApi = new AuthControllerApi(apiConfig);
