@@ -20,8 +20,7 @@ function Progetti() {
 
   // Mutation para deletar
   const deleteMutation = useMutation({
-    mutationFn: (projectId: number) =>
-      projectApi.deleteProject({ projectId }),
+    mutationFn: (projectId: number) => projectApi.deleteProject({ projectId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
     },
@@ -29,13 +28,7 @@ function Progetti() {
 
   // Mutation para atualizar
   const updateMutation = useMutation({
-    mutationFn: ({
-      id,
-      fields,
-    }: {
-      id: number;
-      fields: Partial<Project>;
-    }) => {
+    mutationFn: ({ id, fields }: { id: number; fields: Partial<Project> }) => {
       const existingProject = projects?.find((p) => p.id === id);
       const updatedProject: Project = {
         ...existingProject,

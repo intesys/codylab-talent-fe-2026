@@ -17,42 +17,42 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RegisterRequest'
+              $ref: "#/components/schemas/RegisterRequest"
       responses:
-        '201':
+        "201":
           description: User registered successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-        '400':
+                $ref: "#/components/schemas/User"
+        "400":
           description: Invalid request body
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /auth/login:
-   post:
-    tags:
-      - auth-controller
-    summary: User login
-    operationId: loginUser
-    security: []
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/LoginRequest'
-    responses:
-      '200':
-        description: Successful login
+    post:
+      tags:
+        - auth-controller
+      summary: User login
+      operationId: loginUser
+      security: []
+      requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
-      '401':
-        description: Invalid credentials
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Invalid credentials
   /projects:
     get:
       tags:
@@ -60,14 +60,14 @@ paths:
       summary: Get all projects
       operationId: getAllProjects
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Project'
+                  $ref: "#/components/schemas/Project"
     post:
       tags:
         - project-controller
@@ -78,20 +78,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Project'
+              $ref: "#/components/schemas/Project"
       responses:
-        '201':
+        "201":
           description: Project created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Project'
-        '400':
+                $ref: "#/components/schemas/Project"
+        "400":
           description: Invalid request body
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /projects/{projectId}:
     parameters:
       - name: projectId
@@ -106,18 +106,18 @@ paths:
       summary: Get a project by ID
       operationId: getProjectById
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Project'
-        '404':
+                $ref: "#/components/schemas/Project"
+        "404":
           description: Project not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
     put:
       tags:
         - project-controller
@@ -128,40 +128,40 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Project'
+              $ref: "#/components/schemas/Project"
       responses:
-        '200':
+        "200":
           description: Project updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Project'
-        '400':
+                $ref: "#/components/schemas/Project"
+        "400":
           description: Invalid request body
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
-        '404':
+                $ref: "#/components/schemas/Problem"
+        "404":
           description: Project not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
     delete:
       tags:
         - project-controller
       summary: Delete a project
       operationId: deleteProject
       responses:
-        '204':
+        "204":
           description: Project deleted successfully
-        '404':
+        "404":
           description: Project not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /activities:
     get:
       tags:
@@ -169,14 +169,14 @@ paths:
       summary: Get all activities
       operationId: getAllActivities
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Activity'
+                  $ref: "#/components/schemas/Activity"
     post:
       tags:
         - activity-controller
@@ -187,20 +187,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Activity'
+              $ref: "#/components/schemas/Activity"
       responses:
-        '201':
+        "201":
           description: Activity created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Activity'
-        '400':
+                $ref: "#/components/schemas/Activity"
+        "400":
           description: Invalid request body
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /activities/{activityId}:
     parameters:
       - name: activityId
@@ -215,18 +215,18 @@ paths:
       summary: Get an activity by ID
       operationId: getActivityById
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Activity'
-        '404':
+                $ref: "#/components/schemas/Activity"
+        "404":
           description: Activity not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
     put:
       tags:
         - activity-controller
@@ -237,40 +237,40 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Activity'
+              $ref: "#/components/schemas/Activity"
       responses:
-        '200':
+        "200":
           description: Activity updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Activity'
-        '400':
+                $ref: "#/components/schemas/Activity"
+        "400":
           description: Invalid request body
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
-        '404':
+                $ref: "#/components/schemas/Problem"
+        "404":
           description: Activity not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
     delete:
       tags:
         - activity-controller
       summary: Delete an activity
       operationId: deleteActivity
       responses:
-        '204':
+        "204":
           description: Activity deleted successfully
-        '404':
+        "404":
           description: Activity not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /trackings:
     get:
       tags:
@@ -278,14 +278,14 @@ paths:
       summary: Get all trackings
       operationId: getAllTrackings
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Tracking'
+                  $ref: "#/components/schemas/Tracking"
     post:
       tags:
         - tracking-controller
@@ -296,20 +296,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Tracking'
+              $ref: "#/components/schemas/Tracking"
       responses:
-        '201':
+        "201":
           description: Tracking created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tracking'
-        '400':
+                $ref: "#/components/schemas/Tracking"
+        "400":
           description: Invalid request body
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /trackings/{trackingId}:
     parameters:
       - name: trackingId
@@ -324,18 +324,18 @@ paths:
       summary: Get a tracking by ID
       operationId: getTrackingById
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tracking'
-        '404':
+                $ref: "#/components/schemas/Tracking"
+        "404":
           description: Tracking not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
     put:
       tags:
         - tracking-controller
@@ -346,40 +346,40 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Tracking'
+              $ref: "#/components/schemas/Tracking"
       responses:
-        '200':
+        "200":
           description: Tracking updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tracking'
-        '400':
+                $ref: "#/components/schemas/Tracking"
+        "400":
           description: Invalid request body
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
-        '404':
+                $ref: "#/components/schemas/Problem"
+        "404":
           description: Tracking not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
     delete:
       tags:
         - tracking-controller
       summary: Delete a tracking
       operationId: deleteTracking
       responses:
-        '204':
+        "204":
           description: Tracking deleted successfully
-        '404':
+        "404":
           description: Tracking not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /customers:
     get:
       tags:
@@ -387,14 +387,14 @@ paths:
       summary: Get all customers
       operationId: getAllCustomers
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Customer'
+                  $ref: "#/components/schemas/Customer"
     post:
       tags:
         - customer-controller
@@ -405,20 +405,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Customer'
+              $ref: "#/components/schemas/Customer"
       responses:
-        '201':
+        "201":
           description: Customer created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Customer'
-        '400':
+                $ref: "#/components/schemas/Customer"
+        "400":
           description: Invalid request body
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /customers/{customerId}:
     parameters:
       - name: customerId
@@ -433,18 +433,18 @@ paths:
       summary: Get a customer by ID
       operationId: getCustomerById
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Customer'
-        '404':
+                $ref: "#/components/schemas/Customer"
+        "404":
           description: Customer not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
     put:
       tags:
         - customer-controller
@@ -455,40 +455,40 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Customer'
+              $ref: "#/components/schemas/Customer"
       responses:
-        '200':
+        "200":
           description: Customer updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Customer'
-        '400':
+                $ref: "#/components/schemas/Customer"
+        "400":
           description: Invalid request body
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
-        '404':
+                $ref: "#/components/schemas/Problem"
+        "404":
           description: Customer not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
     delete:
       tags:
         - customer-controller
       summary: Delete a customer
       operationId: deleteCustomer
       responses:
-        '204':
+        "204":
           description: Customer deleted successfully
-        '404':
+        "404":
           description: Customer not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
 components:
   schemas:
     RegisterRequest:
@@ -588,8 +588,8 @@ components:
             An absolute URI that identifies the problem type.  When dereferenced,
             it SHOULD provide human-readable documentation for the problem type
             (e.g., using HTML).
-          default: 'about:blank'
-          example: 'https://zalando.github.io/problem/constraint-violation'
+          default: "about:blank"
+          example: "https://zalando.github.io/problem/constraint-violation"
         title:
           type: string
           description: |
@@ -617,7 +617,7 @@ components:
           description: |
             An absolute URI that identifies the specific occurrence of the problem.
             It may or may not yield further information if dereferenced.
-          example: 'https://example.com/problem/12345'
+          example: "https://example.com/problem/12345"
     Activity:
       type: object
       properties:

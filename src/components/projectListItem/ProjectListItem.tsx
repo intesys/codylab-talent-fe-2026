@@ -15,7 +15,7 @@ export default function ProjectListItem({
 }: ProjectListItemProps) {
   const [isEditing, setIsEditing] = useState(false);
 
-  // Mantemos os dados do formulário localmente
+  // We store the form data locally.
   const [draft, setDraft] = useState<Partial<Project>>({
     title: project.title,
     startDate: project.startDate,
@@ -44,7 +44,7 @@ export default function ProjectListItem({
     setIsEditing(false);
   };
 
-  // Helper para formatar exibição de Date ou string de forma segura
+  // Helper to securely format the display of Date or string.
   const formatDateDisplay = (dateValue: Date | string | undefined): string => {
     if (!dateValue) return "-";
     if (dateValue instanceof Date) {
@@ -53,7 +53,7 @@ export default function ProjectListItem({
     return String(dateValue);
   };
 
-  // Helper para obter valor seguro no input date
+  // Helper to retrieve a safe value from the date input.
   const getDateInputValue = (dateValue: Date | string | undefined): string => {
     if (!dateValue) return "";
     if (dateValue instanceof Date) {
@@ -66,7 +66,7 @@ export default function ProjectListItem({
     <li className={styles.listItem}>
       {isEditing ? (
         <>
-          {/* Input de Data com suporte nativo a Date ou string */}
+          {/* Date Input with native support for Date or string */}
           <input
             className={styles.info}
             type="date"
@@ -75,20 +75,20 @@ export default function ProjectListItem({
               const val = e.target.value;
               setDraft({
                 ...draft,
-                // Se o OpenAPI exigir Date, converte. Se for string/any, atribui.
+                // If OpenAPI requires a Date, it converts it. If it's a string/any string, it assigns an assignment.
                 startDate: val ? new Date(val) : undefined,
               });
             }}
           />
 
-          {/* Input de Título */}
+          {/* Title Input */}
           <input
             className={styles.info}
             value={draft.title ?? ""}
             onChange={(e) => setDraft({ ...draft, title: e.target.value })}
           />
 
-          {/* Input de Horas Estimadas */}
+          {/* Estimated Hours Input */}
           <input
             className={styles.info}
             type="number"
@@ -103,7 +103,7 @@ export default function ProjectListItem({
             }
           />
 
-          {/* Select de Status garantindo a tipagem de ProjectStatusEnum */}
+          {/* Select Status ensuring ProjectStatusEnum typing */}
           <select
             className={styles.info}
             value={(draft.status as string) ?? ""}
