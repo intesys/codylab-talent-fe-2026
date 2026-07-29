@@ -1,95 +1,147 @@
 import { useState } from "react";
-import type { Project } from "../../App";
+import type { Project, ProjectStatusEnum } from "../../api";
 import styles from "./ProjectListItem.module.css";
 
 type ProjectListItemProps = {
-  id: number; // Aggiunto
-  date: string;
-  title: string;
-  ore: string;
-  percentage: string;
-  update: (id: number, fields: Omit<Project, "id">) => void; // Aggiunto: salva le modifiche della riga
-  onDelete: (id: number) => void; // Aggiunto così ogni riga sa il proprio id e può eliminarsi con questa funizone
+  project: Project;
+  update: (id: number, fields: Partial<Project>) => void;
+  onDelete: (id: number) => void;
 };
 
-//aggiunti id, onDelete e onEdit ai props passati alla funzione
 export default function ProjectListItem({
-  id,
-  date,
-  title,
-  ore,
-  percentage,
+  project,
   update,
   onDelete,
 }: ProjectListItemProps) {
-  // isEditing: dice se la riga è in modalità modifica
   const [isEditing, setIsEditing] = useState(false);
-  // draft: copia locale dei valori mentre l'utente sta modificando
-  const [draft, setDraft] = useState<Omit<Project, "id">>({
-    date,
-    title,
-    ore,
-    percentage,
+
+  // We store the form data locally.
+  const [draft, setDraft] = useState<Partial<Project>>({
+    title: project.title,
+    startDate: project.startDate,
+    estimatedHours: project.estimatedHours,
+    status: project.status,
   });
 
-  // entra in modifica ripartendo sempre dai valori attuali
   const handleStartEdit = () => {
-    setDraft({ date, title, ore, percentage });
+    setDraft({
+      title: project.title,
+      startDate: project.startDate,
+      estimatedHours: project.estimatedHours,
+      status: project.status,
+    });
     setIsEditing(true);
   };
 
-  // salva: passa i nuovi valori al parent ed esce dalla modalità modifica
   const handleSave = () => {
-    update(id, draft);
+    if (project.id !== undefined) {
+      update(project.id, draft);
+    }
     setIsEditing(false);
   };
 
-  // annulla: esce senza salvare
   const handleCancel = () => {
     setIsEditing(false);
   };
 
-  // aggiorna un singolo campo del draft mentre si scrive
-  const handleChange = (field: keyof Omit<Project, "id">, value: string) => {
-    setDraft({ ...draft, [field]: value });
+  // Helper to securely format the display of Date or string.
+  const formatDateDisplay = (dateValue: Date | string | undefined): string => {
+    if (!dateValue) return "-";
+    if (dateValue instanceof Date) {
+      return dateValue.toISOString().split("T")[0];
+    }
+    return String(dateValue);
+  };
+
+  // Helper to retrieve a safe value from the date input.
+  const getDateInputValue = (dateValue: Date | string | undefined): string => {
+    if (!dateValue) return "";
+    if (dateValue instanceof Date) {
+      return dateValue.toISOString().split("T")[0];
+    }
+    return String(dateValue);
   };
 
   return (
     <li className={styles.listItem}>
       {isEditing ? (
         <>
+          {/* Date Input with native support for Date or string */}
           <input
             className={styles.info}
-            value={draft.date}
-            onChange={(e) => handleChange("date", e.target.value)}
+            type="date"
+            value={getDateInputValue(draft.startDate)}
+            onChange={(e) => {
+              const val = e.target.value;
+              setDraft({
+                ...draft,
+                // If OpenAPI requires a Date, it converts it. If it's a string/any string, it assigns an assignment.
+                startDate: val ? new Date(val) : undefined,
+              });
+            }}
           />
+
+          {/* Title Input */}
           <input
             className={styles.info}
-            value={draft.title}
-            onChange={(e) => handleChange("title", e.target.value)}
+            value={draft.title ?? ""}
+            onChange={(e) => setDraft({ ...draft, title: e.target.value })}
           />
+
+          {/* Estimated Hours Input */}
           <input
             className={styles.info}
-            value={draft.ore}
-            onChange={(e) => handleChange("ore", e.target.value)}
+            type="number"
+            value={draft.estimatedHours ?? 0}
+            onChange={(e) =>
+              setDraft({
+                ...draft,
+                estimatedHours: e.target.value
+                  ? Number(e.target.value)
+                  : undefined,
+              })
+            }
           />
-          <input
+
+          {/* Select Status ensuring ProjectStatusEnum typing */}
+          <select
             className={styles.info}
-            value={draft.percentage}
-            onChange={(e) => handleChange("percentage", e.target.value)}
-          />
+            value={(draft.status as string) ?? ""}
+            onChange={(e) =>
+              setDraft({
+                ...draft,
+                status: e.target.value as ProjectStatusEnum,
+              })
+            }
+          >
+            <option value="CREATED">CREATED</option>
+            <option value="WORKING">WORKING</option>
+            <option value="STANDBY">STANDBY</option>
+            <option value="COMPLETED">COMPLETED</option>
+            <option value="CLOSED">CLOSED</option>
+          </select>
+
           <button onClick={handleSave}>Salva</button>
           <button onClick={handleCancel}>Annulla</button>
         </>
       ) : (
         <>
-          <div className={styles.info}>{date}</div>
-          <div className={styles.info}>{title}</div>
-          <div className={styles.info}>{ore}</div>
-          <div className={styles.info}>{percentage}%</div>
+          <div className={styles.info}>
+            {formatDateDisplay(project.startDate)}
+          </div>
+          <div className={styles.info}>{project.title ?? "-"}</div>
+          <div className={styles.info}>{project.estimatedHours ?? 0} h</div>
+          <div className={styles.info}>{project.status ?? "-"}</div>
           <button onClick={handleStartEdit}>Modifica</button>
           <div className={styles.info}>
-            <button className={styles.button} onClick={() => onDelete(id)}>
+            <button
+              className={styles.button}
+              onClick={() => {
+                if (project.id !== undefined) {
+                  onDelete(project.id);
+                }
+              }}
+            >
               Elimina
             </button>
           </div>
